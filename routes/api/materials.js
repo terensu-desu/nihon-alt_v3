@@ -1,4 +1,5 @@
 const express = require("express");
+const passport = require("passport");
 const router = express.Router();
 
 // INPUT VALIDATION
@@ -30,7 +31,22 @@ router.get("/:grade/:unit/:section", (req, res) => {
 // @router  POST api/materials/
 // @desc    Upload a file to server
 // @access  Private
-
+router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
+	//check for errors
+	const {errors, isValid} = validateMaterialInput(req.body);
+	if(!isValid) {
+		return res.status(400).json(errors);
+	}
+	const newMaterial = new Material({
+		title: req.body.title,
+		instructions: req.body.instructions,
+		file: req.body.file,
+		user: req.user.id,
+		name: req.body.name,
+		avatar: req.body.avatar
+	});
+	//newMaterial.save().then(material => res.json(material));
+});
 
 // @router  POST api/materials/comment/:id
 // @desc    Add a comment to a material
