@@ -4,51 +4,21 @@ const isEmpty = require("./is-empty");
 module.exports = function validateMaterialInput(data) {
 	let errors = {};
 	// first check if the fields are empty and if so set them to empty strings.
-	data.handle = !isEmpty(data.handle) ? data.handle : "";
-	data.status = !isEmpty(data.status) ? data.status : "";
-	data.skills = !isEmpty(data.skills) ? data.skills : "";
+	data.title = !isEmpty(data.title) ? data.title : "";
+	data.instructions = !isEmpty(data.instructions) ? data.instructions : "";
+	data.file = !isEmpty(data.file) ? data.file : "";
 	// next use validator methods to check the data
-	if(!Validator.isLength(data.handle, {min: 2, max: 40})) {
-		errors.handle = "Handle needs to be between 2 and 40 characters.";
+	if(!Validator.isLength(data.title, {min: 10, max: 40})) {
+		errors.title = "Title must be between 10 and 40 characters.";
 	}
-	if(Validator.isEmpty(data.handle)) {
-		errors.handle = "A profile handle is required.";
+	if(Validator.isEmpty(data.title)) {
+		errors.title = "A title is required.";
 	}
-	if(Validator.isEmpty(data.status)) {
-		errors.status = "Status field is required.";
+	if(!Validator.isLength(data.instructions, {min: 20, max: 1500})) {
+		errors.instructions = "Instructions must be a minimum of 20 characters.";
 	}
-	if(Validator.isEmpty(data.skills)) {
-		errors.skills = "Skills field is required.";
-	}
-	if(!isEmpty(data.website)) {
-		if(!Validator.isURL(data.website)) {
-			errors.website = "Not a valid URL.";
-		}
-	}
-	if(!isEmpty(data.youtube)) {
-		if(!Validator.isURL(data.youtube)) {
-			errors.youtube = "Not a valid URL.";
-		}
-	}
-	if(!isEmpty(data.twitter)) {
-		if(!Validator.isURL(data.twitter)) {
-			errors.twitter = "Not a valid URL.";
-		}
-	}
-	if(!isEmpty(data.facebook)) {
-		if(!Validator.isURL(data.facebook)) {
-			errors.facebook = "Not a valid URL.";
-		}
-	}
-	if(!isEmpty(data.linkedin)) {
-		if(!Validator.isURL(data.linkedin)) {
-			errors.linkedin = "Not a valid URL.";
-		}
-	}
-	if(!isEmpty(data.instagram)) {
-		if(!Validator.isURL(data.instagram)) {
-			errors.instagram = "Not a valid URL.";
-		}
+	if(Validator.isEmpty(data.instructions)) {
+		errors.instructions = "Instructions are required.";
 	}
 	return {
 		errors,
