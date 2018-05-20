@@ -24,7 +24,7 @@ mongoose
 // PASSPORT MIDDLEWARE
 app.use(passport.initialize());
 // PASSPORT CONFIG
-require("./config/passport");
+require("./config/passport")(passport);
 
 // USE ROUTES
 app.use("/api/materials", materials);
