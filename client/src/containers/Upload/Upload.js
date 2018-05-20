@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { addMaterial } from "../../store/actions/";
 import TextFieldGroup from "../../components/UI/TextFieldGroup";
 import TextAreaFieldGroup from "../../components/UI/TextAreaFieldGroup";
 import SelectListGroup from "../../components/UI/SelectListGroup";
@@ -10,14 +11,31 @@ class Upload extends Component {
 		title: "",
 		instructions: "",
 		grade: "",
-
+		file: "",
+		fileUpload: "Choose File"
 	};
 	onSubmit = event => {
-		const newMaterial = {};
+		event.preventDefault();
+		const newMaterial = {
+			title: this.state.title,
+			instructions: this.state.instructions,
+			grade: this.state.instructions,
+			name: this.props.auth.name,
+			avatar: this.props.auth.avatar,
+			file: this.state.file
+		};
 		//send
+		this.props.onAddMaterial(newMaterial);
 	};
 	onChange = event => {
-		this.setState({ [event.target.name]: event.target.value });
+		if(event.target.name === "fileUpload") {
+			this.setState({
+				fileUpload: event.target.files["0"].name,
+				file: event.target.files["0"]
+			});
+		} else {
+			this.setState({ [event.target.name]: event.target.value });
+		}
 	};
 	render() {
 		const errors = this.props.errors || {};
@@ -33,12 +51,12 @@ class Upload extends Component {
 			<div className="container">
 				<div className="row">
 					<div className="col-md 8 m-auto">
-						<h1 className="display-4 text-center">Upload A File</h1>
+						<h2 className="text-center">Upload A File</h2>
 						<p className="lead text-center">People helping people, it's a beautiful thing</p>
 						<form onSubmit={this.onSubmit}>
 							<TextFieldGroup 
 							name="title"
-							placeholder="* Title (Eg. Battleship - Marvel Characters)"
+							placeholder="* Title (Eg. Battleship - Marvel Characters Version)"
 							value={this.state.title}
 							error={errors.title}
 							onChange={this.onChange}
@@ -59,6 +77,22 @@ class Upload extends Component {
 								info="What grade level is this exercise for?"
 								onChange={this.onChange}
 							/>
+							<div className="input-group mb-3">
+							  <div className="input-group-prepend">
+							    <span className="input-group-text">Upload</span>
+							  </div>
+							  <div className="custom-file">
+							    <input 
+							    name="fileUpload" 
+							    type="file" 
+							    className="custom-file-input" 
+							    id="fileUpload" 
+							    onChange={this.onChange} />
+							    <label className="custom-file-label" htmlFor="fileUpload">
+								    {this.state.fileUpload}
+							    </label>
+							  </div>
+							</div>
 							<input type="submit" className="btn btn-info btn-block mt-4" />
 						</form>
 					</div>
@@ -78,4 +112,8 @@ const mapStateToProps = state => ({
 	errors: state.errors
 });
 
-export default connect(mapStateToProps)(Upload);
+const mapDispatchToProps = dispatch => ({
+	onAddMaterial: newMaterial => dispatch(addMaterial(newMaterial))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Upload);
