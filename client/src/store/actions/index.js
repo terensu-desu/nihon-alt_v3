@@ -5,3 +5,6 @@ export {
 	setCurrentUser,
 	logoutUser
 } from "./authActions";
+export {
+	addMaterial
+} from "./materialActions";

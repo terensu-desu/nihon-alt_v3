@@ -6,3 +6,4 @@ export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const UPLOAD_START = "UPLOAD_START";
 export const UPLOAD_SUCCESS = "UPLOAD_SUCCESS";
 export const UPLOAD_FAIL = "UPLOAD_FAIL";
+export const ADD_MATERIAL = "ADD_MATERIAL";
