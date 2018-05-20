@@ -1,8 +1,8 @@
 import * as types from "../actions/actionTypes";
 
-const initalState = {};
+const initialState = {};
 
-const reducer = (state = initalState, action) => {
+const reducer = (state = initialState, action) => {
 	switch(action.type) {
 		case types.GET_ERRORS:
 			return action.payload;
