@@ -1,5 +1,6 @@
 const express = require("express");
 const passport = require("passport");
+const jwt = require("jsonwebtoken");
 const router = express.Router();
 
 // INPUT VALIDATION
@@ -33,6 +34,7 @@ router.get("/:grade/:unit/:section", (req, res) => {
 // @access  Private
 router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
 	//check for errors
+	console.log(req.body);
 	const {errors, isValid} = validateMaterialInput(req.body);
 	if(!isValid) {
 		return res.status(400).json(errors);
@@ -40,17 +42,42 @@ router.post("/", passport.authenticate("jwt", {session: false}), (req, res) => {
 	const newMaterial = new Material({
 		title: req.body.title,
 		instructions: req.body.instructions,
-		file: req.body.file,
+		file: req.body.file, // handle file with module first, place here
 		user: req.user.id,
 		name: req.body.name,
 		avatar: req.body.avatar
 	});
-	//newMaterial.save().then(material => res.json(material));
+	console.log(newMaterial);
+	res.json({success: "File uploaded"});
+	//newMaterial.save().then(material => res.json({success: "File uploaded"}));
 });
 
 // @router  POST api/materials/comment/:id
 // @desc    Add a comment to a material
 // @access  Private
+router.post("/comment/:id", passport.authenticate("jwt", {session: false}), (req, res) => {
+	const {errors, isValid} = validateMaterialInput(req.body);
+	if(!isValid) {
+		return res.status(400).json(errors);
+	}
+	Material.findById(req.params.id)
+		.then(material => {
+			if(!material) {
+				return res.status(400).json({materialnotfound: "Materials not found."});
+			}
+			const newComment = {
+				text: req.body.text,
+				name: req.body.name,
+				avatar: req.body.avatar,
+				user: req.user.id
+			};
+			material.comment.unshift(newComment);
+			material.save().then(material => res.json(material))
+		})
+		.catch(err => {
+
+		});
+});
 
 
 // @router  POST api/materials/like/:id
