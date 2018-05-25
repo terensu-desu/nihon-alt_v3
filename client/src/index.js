@@ -10,11 +10,13 @@ import registerServiceWorker from './registerServiceWorker';
 import authReducer from "./store/reducers/authReducer";
 import uploadReducer from "./store/reducers/uploadReducer";
 import errorReducer from "./store/reducers/errorReducer";
+import loadingReducer from "./store/reducers/loadingReducer";
 
 const rootReducer = combineReducers({
 	auth: authReducer,
 	upload: uploadReducer,
-	errors: errorReducer
+	errors: errorReducer,
+	loading: loadingReducer
 });
 
 const composeEnhancers = process.env.NODE_ENV === "development" ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : null || compose;
