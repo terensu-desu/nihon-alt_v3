@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Aux from "../../hoc/Aux";
+import Spinner from "../../components/UI/Spinner";
 import TextFieldGroup from "../../components/UI/TextFieldGroup";
 import { loginUser } from "../../store/actions/";
 
@@ -39,23 +41,26 @@ class Login extends Component {
 							Sign in to your Nihon ALT account
 						</p>
 						<form onSubmit={this.onSubmit}>
-							<TextFieldGroup 
-							name="email"
-							placeholder="Email Address"
-							value={this.state.email}
-							error={errors.email}
-							type="email"
-							onChange={this.onChange}
-							/>
-							<TextFieldGroup 
-							name="password"
-							placeholder="Password"
-							value={this.state.password}
-							error={errors.password}
-							type="password"
-							onChange={this.onChange}
-							/>
-							<input type="submit" className="btn btn-info btn-block mt-4" />
+							{this.props.loading ? <Spinner /> :
+								(<Aux>
+									<TextFieldGroup 
+									name="email"
+									placeholder="Email Address"
+									value={this.state.email}
+									error={errors.email || ""}
+									type="email"
+									onChange={this.onChange}
+									/>
+									<TextFieldGroup 
+									name="password"
+									placeholder="Password"
+									value={this.state.password}
+									error={errors.password}
+									type="password"
+									onChange={this.onChange}
+									/>
+									<input type="submit" className="btn btn-info btn-block mt-4" />
+								</Aux>) }
 						</form>
 					</div>
 				</div>
@@ -73,7 +78,8 @@ Login.propTypes = {
 const mapStateToProps = state => {
 	return {
 		auth: state.auth,
-		errors: state.errors
+		errors: state.errors,
+		loading: state.loading.loading
 	};
 };
 
