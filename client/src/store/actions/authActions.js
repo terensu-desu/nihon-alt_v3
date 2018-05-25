@@ -1,13 +1,17 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import * as types from "./actionTypes";
-//import { startLoading, endLoading } from "./loading";
+import { startLoading, endLoading } from "./loadingActions";
 import setAuthToken from "../../utils/setAuthToken";
 
 export const registerUser = (userData, history) => dispatch => {
+	dispatch(startLoading());
 	axios
 		.post("/api/users/register", userData)
-		.then(res => history.push("/login"))
+		.then(res => {
+			dispatch(endLoading());
+			history.push("/login");
+		})
 		.catch(err => 
 			dispatch({
 				type: types.GET_ERRORS,
@@ -17,6 +21,7 @@ export const registerUser = (userData, history) => dispatch => {
 };
 
 export const loginUser = userData => dispatch => {
+	dispatch(startLoading());
 	axios
 		.post("/api/users/login", userData)
 		.then(res => {
@@ -29,6 +34,7 @@ export const loginUser = userData => dispatch => {
 			const decoded = jwt_decode(token);
 			// Send decoded user data to set user redux state
 			dispatch(setCurrentUser(decoded));
+			dispatch(endLoading());
 		})
 		.catch(err => 
 			dispatch({
