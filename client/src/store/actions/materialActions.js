@@ -3,10 +3,10 @@ import * as types from "./actionTypes";
 import { startLoading, endLoading } from "./loadingActions";
 
 export const addMaterial = newMaterial => dispatch => {
-	dispatch(startLoading);
+	dispatch(startLoading());
 	axios.post("/api/materials/", newMaterial)
 		.then(res => {
-			dispatch(endLoading);
+			dispatch(endLoading());
 			console.log(res);
 		})
 		.catch(err => {
