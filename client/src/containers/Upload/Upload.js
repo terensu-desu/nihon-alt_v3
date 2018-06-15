@@ -31,6 +31,7 @@ class Upload extends Component {
 	};
 	onChange = event => {
 		if(event.target.name === "fileUpload") {
+			console.log("[FROM REACT]", event.target);
 			this.setState({
 				fileUpload: event.target.files["0"].name,
 				file: event.target.files["0"]

@@ -4,6 +4,7 @@ import { startLoading, endLoading } from "./loadingActions";
 
 export const addMaterial = newMaterial => dispatch => {
 	dispatch(startLoading());
+	console.log("[FROM REDUX ACTION]", newMaterial);
 	axios.post("/api/materials/", newMaterial)
 		.then(res => {
 			dispatch(endLoading());
