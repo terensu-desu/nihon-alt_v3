@@ -78,6 +78,9 @@ router.post(
 	passport.authenticate("jwt", { session: false }),
 	upload.single('file'),
 	(req, res) => {
+		/* ------------------- TODO ---------------------*/
+		// Add unit, section, keywords, and a screenshot capture if possible.
+
 		//check for errors
 		const { errors, isValid } = validateMaterialInput(req.body);
 		if(req.fileValidationError) {
