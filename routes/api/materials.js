@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const multer = require('multer');
 const router = express.Router();
 
 // INPUT VALIDATION
@@ -8,6 +9,46 @@ const validateMaterialInput = require("../../validation/materials");
 
 const Material = require("../../models/Material");
 const User = require("../../models/User");
+
+// MULTER CONFIG FOR FILE UPLOADS
+const acceptedFilesTypes = [
+	'application/msword',
+	'application/pdf',
+	'application/vnd.oasis.opendocument.text',
+	"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+]
+
+const checkFileType = fileType => {
+	let safe = false;
+	for(let type of acceptedFilesTypes) {
+		if(fileType === type) {
+			safe = true;
+		}
+	}
+	return safe;
+};
+
+const storage = multer.diskStorage({
+	destination: function (req, file, cb) {
+    cb(null, 'uploads/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, `${new Date()}-${file.originalname}`)
+  }
+});
+
+const upload = multer({
+	storage: storage,
+	fileFilter: function(req, file, next) {
+    if(!checkFileType(file.mimetype)) 
+    {
+    	req.fileValidationError = true;
+      return next(null, false, req.fileValidationError);
+    } else {
+      next(null, true);
+    }
+	}
+});
 
 // @router  GET api/materials/:grade/:unit/:section
 // @desc    Display materials from a specific grade, unit, section
@@ -35,23 +76,31 @@ router.get("/:grade/:unit/:section", (req, res) => {
 router.post(
 	"/",
 	passport.authenticate("jwt", { session: false }),
+	upload.single('file'),
 	(req, res) => {
-		/* GET FORMIDABLE, IMPORT, PARSE FILE, SET PATH TO WRITE */
 		//check for errors
-		console.log(req.body);
 		const { errors, isValid } = validateMaterialInput(req.body);
+		if(req.fileValidationError) {
+			errors.fileUpload = "Only document type files, like .docx and .pdf, are supported."
+			return res.status(400).json(errors);
+		}
+		if(!req.file) {
+			errors.fileUpload = "Please upload a supported file."
+			return res.status(400).json(errors);
+		}
 		if (!isValid) {
 			return res.status(400).json(errors);
 		}
 		const newMaterial = new Material({
 			title: req.body.title,
 			instructions: req.body.instructions,
-			file: req.body.file, // handle file with module first, place here
+			filePath: req.file.path,
 			user: req.user.id,
+			grade: req.body.grade,
 			name: req.body.name,
 			avatar: req.body.avatar
 		});
-		console.log(newMaterial);
+		console.log("[FROM BACK-END]", newMaterial);
 		// Want to simply return success, trigger a thank you, alert to gmail or something to review
 		res.json({ success: "File uploaded" });
 		//newMaterial.save().then(material => res.json({success: "File uploaded"}));
