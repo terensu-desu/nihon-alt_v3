@@ -7,6 +7,7 @@ import Spinner from "../../components/UI/Spinner";
 import TextFieldGroup from "../../components/UI/TextFieldGroup";
 import TextAreaFieldGroup from "../../components/UI/TextAreaFieldGroup";
 import SelectListGroup from "../../components/UI/SelectListGroup";
+import FileUploadInputGroup from "../../components/UI/FileUploadInputGroup";
 
 class Upload extends Component {
 	state = {
@@ -18,23 +19,27 @@ class Upload extends Component {
 	};
 	onSubmit = event => {
 		event.preventDefault();
-		const newMaterial = {
-			title: this.state.title,
-			instructions: this.state.instructions,
-			grade: this.state.instructions,
-			name: this.props.auth.name,
-			avatar: this.props.auth.avatar,
-			file: this.state.file
-		};
-		//send
-		this.props.onAddMaterial(newMaterial);
+		let uploadData = new FormData();
+		uploadData.append("file", this.state.file);
+		uploadData.append("title", this.state.title);
+		uploadData.append("instructions", this.state.instructions);
+		uploadData.append("grade", this.state.grade);
+		uploadData.append("username", this.props.auth.user.name);
+		uploadData.append("avatar", this.props.auth.user.avatar);
+		this.props.onAddMaterial(uploadData);
+		this.setState({
+			title: "",
+			instructions: "",
+			grade: "",
+			file: "",
+			fileUpload: "Choose File"
+		});
 	};
 	onChange = event => {
 		if(event.target.name === "fileUpload") {
-			console.log("[FROM REACT]", event.target);
 			this.setState({
 				fileUpload: event.target.files["0"].name,
-				file: event.target.files["0"]
+				file: event.target.files[0]
 			});
 		} else {
 			this.setState({ [event.target.name]: event.target.value });
@@ -75,22 +80,13 @@ class Upload extends Component {
 					info="What grade level is this exercise for?"
 					onChange={this.onChange}
 				/>
-				<div className="input-group mb-3">
-				  <div className="input-group-prepend">
-				    <span className="input-group-text">Upload</span>
-				  </div>
-				  <div className="custom-file">
-				    <input 
-				    name="fileUpload" 
-				    type="file" 
-				    className="custom-file-input" 
-				    id="fileUpload" 
-				    onChange={this.onChange} />
-				    <label className="custom-file-label" htmlFor="fileUpload">
-					    {this.state.fileUpload}
-				    </label>
-				  </div>
-				</div>
+				<FileUploadInputGroup 
+					name="fileUpload"
+					value={this.state.fileUpload}
+					error={errors.fileUpload}
+					onChange={this.onChange}
+				/>
+				
 				<input type="submit" className="btn btn-info btn-block mt-4" />
 			</Aux>
 		);
@@ -103,7 +99,7 @@ class Upload extends Component {
 					<div className="col-md 8 m-auto">
 						<h2 className="text-center">Upload A File</h2>
 						<p className="lead text-center">People helping people, it's a beautiful thing</p>
-						<form onSubmit={this.onSubmit}>
+						<form onSubmit={this.onSubmit} encType="multipart/form-data">
 							{form}
 						</form>
 					</div>
