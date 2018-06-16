@@ -17,6 +17,17 @@ class Upload extends Component {
 		file: "",
 		fileUpload: "Choose File"
 	};
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.uploadSuccess) {
+				this.setState({
+				title: "",
+				instructions: "",
+				grade: "",
+				file: "",
+				fileUpload: "Choose File"
+			});
+		}
+	}
 	onSubmit = event => {
 		event.preventDefault();
 		let uploadData = new FormData();
@@ -27,13 +38,6 @@ class Upload extends Component {
 		uploadData.append("username", this.props.auth.user.name);
 		uploadData.append("avatar", this.props.auth.user.avatar);
 		this.props.onAddMaterial(uploadData);
-		this.setState({
-			title: "",
-			instructions: "",
-			grade: "",
-			file: "",
-			fileUpload: "Choose File"
-		});
 	};
 	onChange = event => {
 		if(event.target.name === "fileUpload") {
@@ -111,11 +115,13 @@ class Upload extends Component {
 
 Upload.propTypes = {
 	auth: PropTypes.object.isRequired,
+	uploadSuccess: PropTypes.bool.isRequired,
 	errors: PropTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
 	auth: state.auth,
+	uploadSuccess: state.upload.uploadSuccess,
 	errors: state.errors,
 	loading: state.loading.loading
 });
