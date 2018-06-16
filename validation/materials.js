@@ -14,6 +14,9 @@ module.exports = function validateMaterialInput(data) {
 	if(Validator.isEmpty(data.title)) {
 		errors.title = "A title is required.";
 	}
+	if(Validator.isEmpty(data.grade)) {
+		errors.grade = "A grade choice is required.";
+	}
 	if(!Validator.isLength(data.instructions, {min: 20, max: 1500})) {
 		errors.instructions = "Instructions must be a minimum of 20 characters.";
 	}
