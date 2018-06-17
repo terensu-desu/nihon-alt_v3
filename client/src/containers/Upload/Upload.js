@@ -6,7 +6,7 @@ import Aux from "../../hoc/Aux";
 import Spinner from "../../components/UI/Spinner";
 import TextFieldGroup from "../../components/UI/TextFieldGroup";
 import TextAreaFieldGroup from "../../components/UI/TextAreaFieldGroup";
-import SelectListGroup from "../../components/UI/SelectListGroup";
+import ConditionalSelectWrapper from "../../components/UI/ConditionalSelectWrapper";
 import FileUploadInputGroup from "../../components/UI/FileUploadInputGroup";
 
 class Upload extends Component {
@@ -14,6 +14,9 @@ class Upload extends Component {
 		title: "",
 		instructions: "",
 		grade: "",
+		unit: "",
+		section: "",
+		keywords: "",
 		file: "",
 		fileUpload: "Choose File"
 	};
@@ -23,6 +26,9 @@ class Upload extends Component {
 				title: "",
 				instructions: "",
 				grade: "",
+				unit: "",
+				section: "",
+				keywords: "",
 				file: "",
 				fileUpload: "Choose File"
 			});
@@ -35,12 +41,15 @@ class Upload extends Component {
 		uploadData.append("title", this.state.title);
 		uploadData.append("instructions", this.state.instructions);
 		uploadData.append("grade", this.state.grade);
+		uploadData.append("unit", this.state.unit);
+		uploadData.append("section", this.state.section);
+		uploadData.append("keywords", this.state.keywords.split(","));
 		uploadData.append("username", this.props.auth.user.name);
 		uploadData.append("avatar", this.props.auth.user.avatar);
 		this.props.onAddMaterial(uploadData);
 	};
 	onChange = event => {
-		if(event.target.name === "fileUpload") {
+		if(event.target.name === "fileUpload" && event.target.files["0"]) {
 			this.setState({
 				fileUpload: event.target.files["0"].name,
 				file: event.target.files[0]
@@ -51,14 +60,6 @@ class Upload extends Component {
 	};
 	render() {
 		const errors = this.props.errors || {};
-		const options = [
-			{ label: "* Select A Grade", value: 0 },
-			{ label: "JHS Year 1", value: "JHS Year 1" },
-			{ label: "JHS Year 2", value: "JHS Year 2" },
-			{ label: "JHS Year 3", value: "JHS Year 3" },
-			{ label: "Special Needs", value: "Special Needs" },
-			{ label: "High School", value: "High School" }
-		];
 		let form = (
 			<Aux>
 				<TextFieldGroup 
@@ -76,13 +77,20 @@ class Upload extends Component {
 					info="Instructions should explain the basic use of the exercise."
 					onChange={this.onChange}
 				/>
-				<SelectListGroup
-					name="grade"
-					value={this.state.grade}
-					error={errors.grade}
-					options={options}
-					info="What grade level is this exercise for?"
+				<ConditionalSelectWrapper 
+					gradeValue={this.state.grade}
+					unitValue={this.state.unit}
+					sectionValue={this.state.section}
 					onChange={this.onChange}
+					errors={errors}
+				/>
+				<TextFieldGroup 
+					name="keywords"
+					placeholder="Keywords"
+					value={this.state.keywords}
+					error={errors.keywords}
+					onChange={this.onChange}
+					info="Separate keywords with commas."
 				/>
 				<FileUploadInputGroup 
 					name="fileUpload"
