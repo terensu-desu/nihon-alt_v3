@@ -79,7 +79,12 @@ router.post(
 	upload.single('file'),
 	(req, res) => {
 		/* ------------------- TODO ---------------------*/
-		// Add unit, section, keywords, and a screenshot capture if possible.
+		// Add unit, section, keywords, and generate preview if possible.
+		// - for unit and section -> conditionally render select options for both
+		// one component to hold all three selects, value of grade dictates options of unit
+		// value of unit dictates options of section. FINISHED
+		// - keywords -> comma separated value. FINISHED
+		// - generate preview -> npm filepreview AVOID, use web api instead.
 
 		//check for errors
 		const { errors, isValid } = validateMaterialInput(req.body);
@@ -100,6 +105,9 @@ router.post(
 			filePath: req.file.path,
 			user: req.user.id,
 			grade: req.body.grade,
+			unit: req.body.unit,
+			section: req.body.section,
+			keywords: req.body.keywords,
 			name: req.body.name,
 			avatar: req.body.avatar
 		});
