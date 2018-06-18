@@ -1,4 +1,4 @@
 /node_modules
-/config/keys_prod.js
+/config/keys_dev.js
 package-lock.json
 /uploads
