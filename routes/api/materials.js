@@ -33,7 +33,13 @@ const storage = multer.diskStorage({
     cb(null, 'uploads/')
   },
   filename: function (req, file, cb) {
-    cb(null, `${new Date()}-${file.originalname}`)
+  	const fullDate = new Date();
+  	const year = fullDate.getFullYear();
+  	const month = fullDate.getMonth() + 1;
+  	const date = fullDate.getDate();
+  	const milliseconds = fullDate.getMilliseconds();
+  	let formatedDate = `${year}-${month}-${date}-${milliseconds}`;
+    cb(null, `${formatedDate}-ZXC-${file.originalname}`)
   }
 });
 
@@ -50,17 +56,42 @@ const upload = multer({
 	}
 });
 
-// @router  GET api/materials/:grade/:unit/:section
-// @desc    Display materials from a specific grade, unit, section
+// @router  GET api/materials/:grade/:unit/:part
+// @desc    Display materials from a specific grade, unit, part
 // @access  Public
-router.get("/:grade/:unit/:section", (req, res) => {
+router.get("/:grade/:unit/:part", (req, res) => {
 	Material.find({
 		grade: req.params.grade,
 		unit: req.params.unit,
-		section: req.params.section
+		part: req.params.part,
+		verified: true
 	})
 		.sort({ date: -1 })
-		.then(materials => res.json(materials))
+		.then(materials => {
+			let unitParts = [];
+			if(req.params.unit.match("unit")) {
+				unitParts = [
+					{label: "Part 1", value: "part1"},
+					{label: "Part 2", value: "part2"},
+					{label: "Part 3", value: "part3"},
+					{label: "Part 4", value: "part4"},
+					{label: "Other", value: "other"},
+				];
+			} else {
+				unitParts = [
+					{label: "Placeholder 1", value: "placeholder1"},
+					{label: "Placeholder 2", value: "placeholder2"},
+					{label: "Placeholder 3", value: "placeholder3"},
+					{label: "Placeholder 4", value: "placeholder4"},
+					{label: "Other", value: "other"},
+				];
+			}
+			const responseObject = {
+				materials: materials,
+				unitParts: unitParts
+			}
+			res.json(responseObject)
+		})
 		.catch(err =>
 			res.status(404).json({ notfound: "Unable to find by these parameters." })
 		);
@@ -69,6 +100,7 @@ router.get("/:grade/:unit/:section", (req, res) => {
 // @router  GET api/materials/search/...
 // @desc    Search for materials by keyword, grade, unit
 // @access  Public
+/* --- Use similar approach to what I did in Profiles App --- */
 
 // @router  POST api/materials/
 // @desc    Upload a file to server
@@ -78,14 +110,6 @@ router.post(
 	passport.authenticate("jwt", { session: false }),
 	upload.single('file'),
 	(req, res) => {
-		/* ------------------- TODO ---------------------*/
-		// Add unit, section, keywords, and generate preview if possible.
-		// - for unit and section -> conditionally render select options for both
-		// one component to hold all three selects, value of grade dictates options of unit
-		// value of unit dictates options of section. FINISHED
-		// - keywords -> comma separated value. FINISHED
-		// - generate preview -> npm filepreview AVOID, use web api instead.
-
 		//check for errors
 		const { errors, isValid } = validateMaterialInput(req.body);
 		if(req.fileValidationError) {
@@ -99,20 +123,21 @@ router.post(
 		if (!isValid) {
 			return res.status(400).json(errors);
 		}
+		const fixedFilePath = req.file.path.replace("-ZXC-", `-${req.body.username.split(" ")[0]}-`);
 		const newMaterial = new Material({
 			title: req.body.title,
 			instructions: req.body.instructions,
-			filePath: req.file.path,
+			filePath: fixedFilePath,
 			user: req.user.id,
 			grade: req.body.grade,
 			unit: req.body.unit,
-			section: req.body.section,
+			part: req.body.part,
 			keywords: req.body.keywords,
-			name: req.body.name,
+			username: req.body.username,
 			avatar: req.body.avatar
 		});
 		console.log("[FROM BACK-END]", newMaterial);
-		// Want to simply return success, trigger a thank you, alert to gmail or something to review
+		// Want to simply return success, trigger a thank you, alert to gmail to review
 		res.json({ success: "File uploaded" });
 		//newMaterial.save().then(material => res.json({success: "File uploaded"}));
 	}
