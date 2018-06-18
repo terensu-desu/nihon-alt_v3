@@ -8,12 +8,14 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import authReducer from "./store/reducers/authReducer";
+import materialReducer from "./store/reducers/materialReducer";
 import uploadReducer from "./store/reducers/uploadReducer";
 import errorReducer from "./store/reducers/errorReducer";
 import loadingReducer from "./store/reducers/loadingReducer";
 
 const rootReducer = combineReducers({
 	auth: authReducer,
+	materials: materialReducer,
 	upload: uploadReducer,
 	errors: errorReducer,
 	loading: loadingReducer
