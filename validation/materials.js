@@ -20,8 +20,8 @@ module.exports = function validateMaterialInput(data) {
 	if(Validator.isEmpty(data.unit) || data.unit == 0) {
 		errors.unit = "A unit choice is required.";
 	}
-	if(Validator.isEmpty(data.section) || data.section == 0) {
-		errors.section = "A section choice is required.";
+	if(Validator.isEmpty(data.part) || data.part == 0) {
+		errors.part = "Part is required.";
 	}
 	if(!Validator.isLength(data.instructions, {min: 20, max: 1500})) {
 		errors.instructions = "Instructions must be a minimum of 20 characters.";
