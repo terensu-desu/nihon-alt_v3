@@ -1,13 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-
+// TODO: Add verified: false as default, add imagePath: String, not required. 
+// After upload, admin receives notification with objectId, creates image preview
+// and verifies document. Image is placed in a dir, admin updates by id w/ path & verified: true
 const MaterialSchema = new Schema({
 	title: {
 		type: String,
 		required: true
 	},
-	image: {
-		type: String
+	instructions: {
+		type: String,
+		required: true
 	},
 	grade: {
 		type: String,
@@ -17,28 +20,38 @@ const MaterialSchema = new Schema({
 		type: String,
 		required: true
 	},
-	section: {
+	part: {
 		type: String,
 		required: true
 	},
-	path: {
+	filePath: {
 		type: String,
 		required: true
+	},
+	imagePath: {
+		type: String
 	},
 	keywords: {
 		type: [String]
-	},
-	instructions: {
-		type: String,
-		required: true
 	},
 	user: {
 		type: Schema.Types.ObjectId,
 		ref: "users"
 	},
+	username: {
+		type: String,
+		required: true
+	},
+	avatar: {
+		type: String
+	},
 	date: {
 		type: Date,
 		default: Date.now
+	},
+	verified: {
+		type: Boolean,
+		default: false
 	},
 	likes: [
 		{
