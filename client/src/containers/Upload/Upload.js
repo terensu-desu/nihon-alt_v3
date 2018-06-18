@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { addMaterial } from "../../store/actions/";
+import { uploadMaterial } from "../../store/actions/";
 import Aux from "../../hoc/Aux";
 import Spinner from "../../components/UI/Spinner";
 import TextFieldGroup from "../../components/UI/TextFieldGroup";
@@ -15,7 +15,7 @@ class Upload extends Component {
 		instructions: "",
 		grade: "",
 		unit: "",
-		section: "",
+		part: "",
 		keywords: "",
 		file: "",
 		fileUpload: "Choose File"
@@ -27,7 +27,7 @@ class Upload extends Component {
 				instructions: "",
 				grade: "",
 				unit: "",
-				section: "",
+				part: "",
 				keywords: "",
 				file: "",
 				fileUpload: "Choose File"
@@ -42,11 +42,11 @@ class Upload extends Component {
 		uploadData.append("instructions", this.state.instructions);
 		uploadData.append("grade", this.state.grade);
 		uploadData.append("unit", this.state.unit);
-		uploadData.append("section", this.state.section);
+		uploadData.append("part", this.state.part);
 		uploadData.append("keywords", this.state.keywords.split(","));
 		uploadData.append("username", this.props.auth.user.name);
 		uploadData.append("avatar", this.props.auth.user.avatar);
-		this.props.onAddMaterial(uploadData);
+		this.props.onUploadMaterial(uploadData);
 	};
 	onChange = event => {
 		if(event.target.name === "fileUpload" && event.target.files["0"]) {
@@ -80,7 +80,7 @@ class Upload extends Component {
 				<ConditionalSelectWrapper 
 					gradeValue={this.state.grade}
 					unitValue={this.state.unit}
-					sectionValue={this.state.section}
+					partValue={this.state.part}
 					onChange={this.onChange}
 					errors={errors}
 				/>
@@ -124,7 +124,9 @@ class Upload extends Component {
 Upload.propTypes = {
 	auth: PropTypes.object.isRequired,
 	uploadSuccess: PropTypes.bool.isRequired,
-	errors: PropTypes.object.isRequired
+	errors: PropTypes.object.isRequired,
+	loading: PropTypes.bool.isRequired,
+	onUploadMaterial: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -135,7 +137,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onAddMaterial: newMaterial => dispatch(addMaterial(newMaterial))
+	onUploadMaterial: newMaterial => dispatch(uploadMaterial(newMaterial))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Upload);
