@@ -6,5 +6,6 @@ export {
 	logoutUser
 } from "./authActions";
 export {
-	addMaterial
+	uploadMaterial,
+	getMaterials
 } from "./materialActions";
