@@ -5,111 +5,109 @@ class ConditionalSelectWrapper extends Component {
 	render() {
 		const gradeOptions = [
 			{ label: "* Select A Grade", value: 0 },
-			{ label: "JHS Year 1", value: "JHS Year 1" },
-			{ label: "JHS Year 2", value: "JHS Year 2" },
-			{ label: "JHS Year 3", value: "JHS Year 3" },
-			{ label: "Special Needs", value: "Special Needs" },
-			{ label: "High School", value: "High School" }
+			{ label: "JHS Year 1", value: "jhsyear1" },
+			{ label: "JHS Year 2", value: "jhsyear2" },
+			{ label: "JHS Year 3", value: "jhsyear3" },
+			{ label: "Special Needs", value: "specialneeds" },
+			{ label: "High School", value: "highschool" }
 		];
 		let unitOptions = [];
-		let sectionOptions = [];
+		let partOptions = [];
 		// TODO: Work on making sure select options don't appear when fields are invalid
-		if(this.props.gradeValue === "JHS Year 1") {
+		if(this.props.gradeValue === "jhsyear1") {
 			unitOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Unit 0", value: "Unit 0"}, 
-				{label: "Unit 1", value: "Unit 1"}, 
-				{label: "Unit 2", value: "Unit 2"}, 
-				{label: "Unit 3", value: "Unit 3"}, 
-				{label: "Unit 4", value: "Unit 4"}, 
-				{label: "Unit 5", value: "Unit 5"}, 
-				{label: "Unit 6", value: "Unit 6"}, 
-				{label: "Unit 7", value: "Unit 7"}, 
-				{label: "Unit 8", value: "Unit 8"}, 
-				{label: "Unit 9", value: "Unit 9"}, 
-				{label: "Unit 10", value: "Unit 10"}, 
-				{label: "Unit 11", value: "Unit 11"}, 
-				{label: "Extras", value: "Extras"},
-				{label: "Other", value: "Other"}
+				{label: "Unit 0", value: "unit0"}, 
+				{label: "Unit 1", value: "Unit1"}, 
+				{label: "Unit 2", value: "unit2"}, 
+				{label: "Unit 3", value: "unit3"}, 
+				{label: "Unit 4", value: "unit4"}, 
+				{label: "Unit 5", value: "unit5"}, 
+				{label: "Unit 6", value: "unit6"}, 
+				{label: "Unit 7", value: "unit7"}, 
+				{label: "Unit 8", value: "unit8"}, 
+				{label: "Unit 9", value: "unit9"}, 
+				{label: "Unit 10", value: "unit10"}, 
+				{label: "Unit 11", value: "unit11"}, 
+				{label: "Extras", value: "extras"},
+				{label: "Other", value: "other"}
 			]
-		} else if(this.props.gradeValue === "JHS Year 2") {
+		} else if(this.props.gradeValue === "jhsyear2") {
 			unitOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Unit 0", value: "Unit 0"}, 
-				{label: "Unit 1", value: "Unit 1"}, 
-				{label: "Unit 2", value: "Unit 2"}, 
-				{label: "Unit 3", value: "Unit 3"}, 
-				{label: "Unit 4", value: "Unit 4"}, 
-				{label: "Unit 5", value: "Unit 5"}, 
-				{label: "Unit 6", value: "Unit 6"}, 
-				{label: "Unit 7", value: "Unit 7"},
-				{label: "Extras", value: "Extras"},
-				{label: "Other", value: "Other"}
+				{label: "Unit 1", value: "unit1"}, 
+				{label: "Unit 2", value: "unit2"}, 
+				{label: "Unit 3", value: "unit3"}, 
+				{label: "Unit 4", value: "unit4"}, 
+				{label: "Unit 5", value: "unit5"}, 
+				{label: "Unit 6", value: "unit6"}, 
+				{label: "Unit 7", value: "unit7"},
+				{label: "Extras", value: "extras"},
+				{label: "Other", value: "other"}
 			]
-		} else if(this.props.gradeValue === "JHS Year 3") {
+		} else if(this.props.gradeValue === "jhsyear3") {
 			unitOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Unit 0", value: "Unit 0"}, 
-				{label: "Unit 1", value: "Unit 1"}, 
-				{label: "Unit 2", value: "Unit 2"}, 
-				{label: "Unit 3", value: "Unit 3"}, 
-				{label: "Unit 4", value: "Unit 4"}, 
-				{label: "Unit 5", value: "Unit 5"}, 
-				{label: "Unit 6", value: "Unit 6"},
-				{label: "Extras", value: "Extras"},
-				{label: "Other", value: "Other"}
+				{label: "Unit 1", value: "unit1"}, 
+				{label: "Unit 2", value: "unit2"}, 
+				{label: "Unit 3", value: "unit3"}, 
+				{label: "Unit 4", value: "unit4"}, 
+				{label: "Unit 5", value: "unit5"}, 
+				{label: "Unit 6", value: "unit6"},
+				{label: "Extras", value: "extras"},
+				{label: "Other", value: "other"}
 			]
-		} else if(this.props.gradeValue === "Special Needs") {
+		} else if(this.props.gradeValue === "specialneeds") {
 			unitOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Vocabulary", value: "Vocabulary"}, 
-				{label: "Games", value: "Games"}, 
-				{label: "Songs", value: "Songs"}, 
-				{label: "Holidays", value: "Holidays"},
-				{label: "Other", value: "Other"}
+				{label: "Vocabulary", value: "vocabulary"}, 
+				{label: "Games", value: "games"}, 
+				{label: "Songs", value: "songs"}, 
+				{label: "Holidays", value: "holidays"},
+				{label: "Other", value: "other"}
 			]
-		} else if(this.props.gradeValue === "High School") {
+		} else if(this.props.gradeValue === "highschool") {
 			unitOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Vocabulary", value: "Vocabulary"}, 
-				{label: "Activities", value: "Activities"},
-				{label: "Holidays", value: "Holidays"},
-				{label: "Other", value: "Other"}
+				{label: "Vocabulary", value: "vocabulary"}, 
+				{label: "Activities", value: "activities"},
+				{label: "Holidays", value: "holidays"},
+				{label: "Other", value: "other"}
 			]
 		}
-		if(this.props.gradeValue && this.props.unitValue.match("Unit")) {
-			sectionOptions = [
+		if(this.props.gradeValue && this.props.unitValue.match("unit")) {
+			partOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Section 1", value: "Section 1"}, 
-				{label: "Section 2", value: "Section 2"},
-				{label: "Section 3", value: "Section 3"},
-				{label: "Section 4", value: "Section 4"},
-				{label: "Other", value: "Other"}
+				{label: "Part 1", value: "part1"}, 
+				{label: "Part 2", value: "part2"},
+				{label: "Part 3", value: "part3"},
+				{label: "Part 4", value: "part4"},
+				{label: "Other", value: "other"}
 			];
-		} else if(this.props.gradeValue && this.props.unitValue === "Extras") {
-			sectionOptions = [
+		} else if(this.props.gradeValue && this.props.unitValue === "extras") {
+			partOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Daily Scene 1", value: "Daily Scene 1"}, 
-				{label: "Daily Scene 2", value: "Daily Scene 2"},
-				{label: "Daily Scene 3", value: "Daily Scene 3"},
-				{label: "Daily Scene 4", value: "Daily Scene 4"},
-				{label: "Daily Scene 5", value: "Daily Scene 5"},
-				{label: "Daily Scene 6", value: "Daily Scene 6"},
-				{label: "Daily Scene 7", value: "Daily Scene 7"},
-				{label: "Presentation 1", value: "Presentation 1"},
-				{label: "Presentation 2", value: "Presentation 2"},
-				{label: "Presentation 3", value: "Presentation 3"},
-				{label: "Other", value: "Other"}
+				{label: "Daily Scene 1", value: "dailyscene1"}, 
+				{label: "Daily Scene 2", value: "dailyscene2"},
+				{label: "Daily Scene 3", value: "dailyscene3"},
+				{label: "Daily Scene 4", value: "dailyscene4"},
+				{label: "Daily Scene 5", value: "dailyscene5"},
+				{label: "Daily Scene 6", value: "dailyscene6"},
+				{label: "Daily Scene 7", value: "dailyscene7"},
+				{label: "Presentation 1", value: "presentation1"},
+				{label: "Presentation 2", value: "presentation2"},
+				{label: "Presentation 3", value: "presentation3"},
+				{label: "Other", value: "other"}
 			];
 		} else if(this.props.gradeValue && this.props.unitValue) {
-			sectionOptions = [
+			partOptions = [
 				{label: "* Select One", value: 0},
-				{label: "Placeholder 1", value: "Placeholder 1"}, 
-				{label: "Placeholder 2", value: "Placeholder 2"},
-				{label: "Placeholder 3", value: "Placeholder 3"},
-				{label: "Placeholder 4", value: "Placeholder 4"},
-				{label: "Placeholder 5", value: "Placeholder 5"},
-				{label: "Other", value: "Other"}
+				{label: "Placeholder 1", value: "placeholder1"}, 
+				{label: "Placeholder 2", value: "placeholder2"},
+				{label: "Placeholder 3", value: "placeholder3"},
+				{label: "Placeholder 4", value: "placeholder4"},
+				{label: "Placeholder 5", value: "placeholder5"},
+				{label: "Other", value: "other"}
 			];
 		}
 		return (
@@ -131,10 +129,10 @@ class ConditionalSelectWrapper extends Component {
 					onChange={this.props.onChange}
 				/>
 					<SelectListGroup
-					name="section"
-					value={this.props.sectionValue}
-					error={this.props.errors.section}
-					options={sectionOptions}
+					name="part"
+					value={this.props.partValue}
+					error={this.props.errors.part}
+					options={partOptions}
 					info="What section does this focus on?"
 					onChange={this.props.onChange}
 				/>
