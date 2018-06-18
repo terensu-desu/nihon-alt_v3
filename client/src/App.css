@@ -1,5 +1,41 @@
+.main {
+  min-height: calc(100vh - 80px);
+}
+
 #banner {
 	background: url(./assets/images/banner.jpg) left center;
+}
+
+.navbar-nav li .nav-link {
+  color: #fff !important;
+}
+
+.unitParts {
+  margin-right: 8px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  background-color: #6c757d;
+}
+.unitParts a {
+  color: #fff;
+}
+.unitParts:last-child {
+  margin-right: 0;
+}
+
+.superActive {
+  color: gold !important;
+}
+
+.footer {
+  background-color: #6c757d;
+}
+.footer-text {
+  margin-top: 1rem !important;
+  color: #fff;
+}
+.footer-text a {
+  color: gold;
 }
 
 /* For loading spinner */
