@@ -9,3 +9,4 @@ export {
 	uploadMaterial,
 	getMaterials
 } from "./materialActions";
+export { initializeBlog } from "./blogActions";
