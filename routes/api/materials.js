@@ -29,23 +29,23 @@ const checkFileType = fileType => {
 };
 
 const storage = multer.diskStorage({
-	destination: function (req, file, cb) {
-    cb(null, 'uploads/')
+	destination: (req, file, next) => {
+    next(null, 'uploads/')
   },
-  filename: function (req, file, cb) {
+  filename: (req, file, next) => {
   	const fullDate = new Date();
   	const year = fullDate.getFullYear();
   	const month = fullDate.getMonth() + 1;
   	const date = fullDate.getDate();
   	const milliseconds = fullDate.getMilliseconds();
   	let formatedDate = `${year}-${month}-${date}-${milliseconds}`;
-    cb(null, `${formatedDate}-ZXC-${file.originalname}`)
+    next(null, `${formatedDate}-ZXC-${file.originalname}`)
   }
 });
 
 const upload = multer({
 	storage: storage,
-	fileFilter: function(req, file, next) {
+	fileFilter: (req, file, next) => {
     if(!checkFileType(file.mimetype)) 
     {
     	req.fileValidationError = true;
@@ -101,6 +101,19 @@ router.get("/:grade/:unit/:part", (req, res) => {
 // @desc    Search for materials by keyword, grade, unit
 // @access  Public
 /* --- Use similar approach to what I did in Profiles App --- */
+router.post("/search", (req, res) => {
+	console.log("hello")
+	const queries = req.body.query.split(/[ ,.]+/);
+	const query = new RegExp(req.body.query, "i");
+	/*TODO: Check materials for a match to each word in the array of queries*/
+	Material.find({$or:[{title: queries},{keywords: queries}]})
+		.then(searchResults => {
+			console.log("[SEARCH RESULTS]", searchResults)
+		})
+		.catch(err => {
+			console.log("Error in search")
+		})
+});
 
 // @router  POST api/materials/
 // @desc    Upload a file to server
