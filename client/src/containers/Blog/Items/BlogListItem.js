@@ -11,7 +11,7 @@ const blogListItem = ({blog}) => {
 				<small>{blog.date}</small>
 			</div>
 			<p className="mb-1">
-				{blog.preview}
+				{blog.preview.slice(0, 144)+"..."}
 			</p>
 			<small>Click to read and comment</small>
 		</a>

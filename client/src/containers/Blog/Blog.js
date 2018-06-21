@@ -1,32 +1,40 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import { initializeBlog } from "../../store/actions/";
 import BlogListItem from "./Items/BlogListItem";
 
 class Blog extends Component {
-	state = {
-		
-	};
+	state = { page: 0 };
+	componentDidMount() {
+		this.props.onInitializeBlog(this.state.page);
+	}
+	componentWillReceiveProps(nextProps) {
+		if(this.state.pages !== nextProps.pages) {
+			this.props.onInitializeBlog(nextProps.page);
+		}
+	}
 	render() {
 		const blog1 = {
 			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus...",
+			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus",
 			date: "May 5th, 2018",
 			id: 1214
 		};
 		const blog2 = {
 			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus...",
+			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus",
 			date: "May 5th, 2018",
 			id: 1215
 		};
 		const blog3 = {
 			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus...",
+			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus",
 			date: "May 5th, 2018",
 			id: 1216
 		};
 		const blog4 = {
 			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus...",
+			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus",
 			date: "May 5th, 2018",
 			id: 1217
 		};
@@ -70,5 +78,12 @@ class Blog extends Component {
 	}
 };
 
+const mapStateToProps = state => ({
 
-export default Blog;
+});
+
+const mapDispatchToProps = dispatch => ({
+	onInitializeBlog: page => dispatch(initializeBlog(page))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Blog);
