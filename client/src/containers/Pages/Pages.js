@@ -25,7 +25,10 @@ class Pages extends Component {
 			unit: nextProps.match.params.unit,
 			part: nextProps.match.params.part
 		};
-		if(oldParams.grade !== nextParams.grade ||  oldParams.unit !== nextParams.unit || oldParams.part !== nextParams.part) {
+		const gradeChange = oldParams.grade !== nextParams.grade;
+		const unitChange = oldParams.unit !== nextParams.unit;
+		const partChange = oldParams.part !== nextParams.part;
+		if(gradeChange || unitChange || partChange) {
 			this.props.onGetMaterials(nextParams);
 		}
 	}
@@ -65,7 +68,7 @@ class Pages extends Component {
 			list = this.props.materials.map(item => (
 				<div className="card" key={item._id}>
 					<img 
-					className="card-img-top" 
+					className="card-img-top"
 					src="https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b1a117c92ca0030b584bfd26c70bc659&auto=format&fit=crop&w=1375&q=80" 
 					alt="I M A G E" />
 			    <div className="card-body">
@@ -103,9 +106,9 @@ class Pages extends Component {
 			partsLinks = (
 				<ul className="nav justify-content-end">
 					{unitParts.map(item => (
-						<li className="nav-item unitParts" key={item.value}>
+						<li className="nav-item unit-parts" key={item.value}>
 					    <NavLink 
-					    activeClassName="superActive"
+					    activeClassName="super-active"
 					    className="nav-link" to={`/pages/${grade}/${unit}/${item.value}`}>
 					    	{item.label}
 					    </NavLink>
