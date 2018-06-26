@@ -426,17 +426,14 @@ const materials = [
 	}),
 ];
 
-let done = 0;
+let count = 0;
 for(let material of materials) {
 	material.save()
-		.then(result => {
-			done++;
-			if(done === materials.length) {
-				exit();
-			}
+		.then(res => {
+			count++
+			console.log("[Seed material added!]", count)
+		})
+		.then(res => {
+			mongoose.disconnect();
 		});
-}
-
-const exit = () => {
-	mongoose.disconnect();
 }
