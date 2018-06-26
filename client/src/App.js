@@ -11,6 +11,7 @@ import Blog from "./containers/Blog/Blog";
 import Register from "./containers/Auth/Register";
 import Login from "./containers/Auth/Login";
 import Pages from "./containers/Pages/Pages";
+import SearchResults from "./components/SearchResults/SearchResults";
 import Upload from "./containers/Upload/Upload";
 import Footer from "./components/Footer/Footer";
 import Aux from "./hoc/Aux";
@@ -32,6 +33,7 @@ class App extends Component {
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/pages/:grade/:unit/:part" component={Pages}/>
+              <Route path="/searchresults" component={SearchResults} />
               <PrivateRoute path="/upload" component={Upload} />
             </Switch>
           </div>
