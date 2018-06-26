@@ -43,7 +43,7 @@ class Upload extends Component {
 		uploadData.append("grade", this.state.grade);
 		uploadData.append("unit", this.state.unit);
 		uploadData.append("part", this.state.part);
-		uploadData.append("keywords", this.state.keywords.split(","));
+		uploadData.append("keywords", this.state.keywords);
 		uploadData.append("username", this.props.auth.user.name);
 		uploadData.append("avatar", this.props.auth.user.avatar);
 		this.props.onUploadMaterial(uploadData);
