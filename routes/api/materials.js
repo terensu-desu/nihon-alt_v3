@@ -102,8 +102,9 @@ router.get("/:grade/:unit/:part", (req, res) => {
 // @access  Public
 /* --- Use similar approach to what I did in Profiles App --- */
 router.post("/search", (req, res) => {
-	console.log("hello")
 	const queries = req.body.query.split(/[ ,.]+/);
+	// run find(), check properties for match of each query,
+	// if found, return
 	const query = new RegExp(req.body.query, "i");
 	/*TODO: Check materials for a match to each word in the array of queries*/
 	Material.find({$or:[{title: queries},{keywords: queries}]})
@@ -112,7 +113,7 @@ router.post("/search", (req, res) => {
 		})
 		.catch(err => {
 			console.log("Error in search")
-		})
+		});
 });
 
 // @router  POST api/materials/
