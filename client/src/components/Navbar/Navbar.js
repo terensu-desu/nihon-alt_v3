@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
+import Aux from "../../hoc/Aux";
+import SearchBar from "../../containers/SearchBar/SearchBar";
 import JhsYear1 from "./Items/JhsYear1";
 import JhsYear2 from "./Items/JhsYear2";
 import JhsYear3 from "./Items/JhsYear3";
@@ -14,7 +16,7 @@ class Navbar extends Component {
 	};
 	render() {
 		let authLinks = (
-			<ul className="navbar-nav ml-auto">
+			<Aux>
 				<li className="nav-item mr-2">
 					<NavLink className="nav-link" to="/register">
 						Sign Up
@@ -25,11 +27,11 @@ class Navbar extends Component {
 						Log In
 					</NavLink>
 				</li>
-			</ul>
+			</Aux>
 		);
 		if (this.props.auth.isAuthenticated) {
 			authLinks = (
-				<ul className="navbar-nav ml-auto">
+				<Aux>
 					<li className="nav-item mr-2">
 						<NavLink className="nav-link" to="/upload">
 							Upload
@@ -47,7 +49,7 @@ class Navbar extends Component {
 							Logout
 						</a>
 					</li>
-				</ul>
+				</Aux>
 			);
 		}
 		return (
@@ -73,7 +75,10 @@ class Navbar extends Component {
 							<SpecialNeeds />
 							<HighSchool />
 						</ul>
-						{authLinks}
+						<ul className="navbar-nav ml-auto">
+						  <SearchBar />
+							{authLinks}
+						</ul>
 					</div>
 				</div>
 			</nav>
