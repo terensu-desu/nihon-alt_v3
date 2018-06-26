@@ -10,3 +10,4 @@ export {
 	getMaterials
 } from "./materialActions";
 export { initializeBlog } from "./blogActions";
+export { handleSearch } from "./searchActions";
