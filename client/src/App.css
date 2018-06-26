@@ -10,20 +10,20 @@
   color: #fff !important;
 }
 
-.unitParts {
+.unit-parts {
   margin-right: 8px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
   background-color: #6c757d;
 }
-.unitParts a {
+.unit-parts a {
   color: #fff;
 }
-.unitParts:last-child {
+.unit-parts:last-child {
   margin-right: 0;
 }
 
-.superActive {
+.super-active {
   color: gold !important;
 }
 
