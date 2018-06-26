@@ -16,7 +16,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part1",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -29,7 +29,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part1",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -42,7 +42,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part1",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -55,7 +55,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part1",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -68,7 +68,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part2",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -81,7 +81,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part2",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -94,7 +94,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part2",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -107,7 +107,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part2",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -120,7 +120,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part3",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -133,7 +133,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part3",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -146,7 +146,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part3",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -159,7 +159,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part3",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -172,7 +172,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part4",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -185,7 +185,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part4",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -198,7 +198,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part4",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -211,7 +211,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "part4",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: false
@@ -224,7 +224,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "other",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -237,7 +237,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "other",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -250,7 +250,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "other",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -263,7 +263,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit1",
 		part: "other",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -276,7 +276,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit2",
 		part: "part1",
-		keywords: "game, fun, battleship, basic, greeting",
+		keywords: ["game", "fun", "battleship", "basic", "greeting"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -289,7 +289,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit2",
 		part: "part1",
-		keywords: "",
+		keywords: ["quiz", "fun", "bingo", "advanced", "passive"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -302,7 +302,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit2",
 		part: "part1",
-		keywords: "celebrities, famous, guess who, stuff",
+		keywords: ["celebrities", "famous", "guess who", "stuff"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -315,7 +315,7 @@ const materials = [
 		grade: "jhsyear1",
 		unit: "unit2",
 		part: "part1",
-		keywords: "",
+		keywords: ["quiz", "fun", "bingo", "advanced", "passive"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -328,7 +328,7 @@ const materials = [
 		grade: "jhsyear2",
 		unit: "unit4",
 		part: "part3",
-		keywords: "shoes, clothes, hats, rock, paper, scissors",
+		keywords: ["shoes", "clothes", "hats", "rock", "paper", "scissors"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -341,7 +341,7 @@ const materials = [
 		grade: "jhsyear2",
 		unit: "unit4",
 		part: "part3",
-		keywords: "bears, beets, battlestar galactica",
+		keywords: ["bears", "beets", "battlestar galactica"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -354,7 +354,7 @@ const materials = [
 		grade: "jhsyear2",
 		unit: "unit4",
 		part: "part3",
-		keywords: "spelling, burp, Farz, heart",
+		keywords: ["spelling", "burp", "Farz", "heart"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -367,7 +367,7 @@ const materials = [
 		grade: "jhsyear3",
 		unit: "unit2",
 		part: "part1",
-		keywords: "",
+		keywords: ["quiz", "fun", "bingo", "advanced", "passive"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -380,7 +380,7 @@ const materials = [
 		grade: "jhsyear3",
 		unit: "unit2",
 		part: "part1",
-		keywords: "",
+		keywords: ["quiz", "fun", "bingo", "advanced", "passive"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -393,7 +393,7 @@ const materials = [
 		grade: "jhsyear3",
 		unit: "unit6",
 		part: "part1",
-		keywords: "",
+		keywords: ["quiz", "fun", "bingo", "advanced", "passive"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -406,7 +406,7 @@ const materials = [
 		grade: "jhsyear3",
 		unit: "unit6",
 		part: "part2",
-		keywords: "",
+		keywords: ["spelling", "burp", "Farz", "heart"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
@@ -419,7 +419,7 @@ const materials = [
 		grade: "jhsyear3",
 		unit: "unit6",
 		part: "part2",
-		keywords: "",
+		keywords: ["spelling", "burp", "Farz", "heart"],
 		username: "Terence Mangram",
 		avatar: "www.gravatar.com/avatar/44d16bf42b0f0466272b2bb1f0d67d61?s=200&r=pg&d=mm",
 		verified: true
