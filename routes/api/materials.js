@@ -100,19 +100,37 @@ router.get("/:grade/:unit/:part", (req, res) => {
 // @router  GET api/materials/search/...
 // @desc    Search for materials by keyword, grade, unit
 // @access  Public
-/* --- Use similar approach to what I did in Profiles App --- */
 router.post("/search", (req, res) => {
 	const queries = req.body.query.split(/[ ,.]+/);
-	// run find(), check properties for match of each query,
-	// if found, return
 	const query = new RegExp(req.body.query, "i");
-	/*TODO: Check materials for a match to each word in the array of queries*/
-	Material.find({$or:[{title: queries},{keywords: queries}]})
-		.then(searchResults => {
-			console.log("[SEARCH RESULTS]", searchResults)
+	Material.find({})
+		.then(allMaterials => {
+			let results = [];
+			for(let material of allMaterials) {
+				for(let keyword of queries) {
+					if(material.title.toLowerCase().includes(keyword.toLowerCase())) {
+						results.push(material);
+					} else if(material.keywords) {
+						let match = false;
+						for(let word of material.keywords) {
+							if(word.toLowerCase().includes(keyword.toLowerCase())) {
+								match = true;
+							}
+						}
+						if(match) {
+							results.push(material);
+						}
+					} else if(material.instructions.toLowerCase().includes(keyword.toLowerCase())) {
+						results.push(material);
+					}
+				}
+			}
+			// send results back to app, redux handles redirect to results component
+			console.log(results.length);
+			res.json(results);
 		})
 		.catch(err => {
-			console.log("Error in search")
+			console.log(err)
 		});
 });
 
@@ -137,6 +155,7 @@ router.post(
 		if (!isValid) {
 			return res.status(400).json(errors);
 		}
+		const fixedKeywords = req.body.keywords.split(",");
 		const fixedFilePath = req.file.path.replace("-ZXC-", `-${req.body.username.split(" ")[0]}-`);
 		const newMaterial = new Material({
 			title: req.body.title,
@@ -146,7 +165,7 @@ router.post(
 			grade: req.body.grade,
 			unit: req.body.unit,
 			part: req.body.part,
-			keywords: req.body.keywords,
+			keywords: fixedKeywords,
 			username: req.body.username,
 			avatar: req.body.avatar
 		});
