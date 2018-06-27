@@ -29,6 +29,7 @@ class SearchBar extends Component {
 				</a>
 				<div className="dropdown-menu" aria-labelledby="navbarDropdown">
 					<form className="form-inline p-2" onSubmit={this.onSubmit}>
+						{/* TODO: Adjust TextFieldGroup to take in className and aria-label */}
 				    <input 
 				    className="form-control" 
 				    type="search" 
