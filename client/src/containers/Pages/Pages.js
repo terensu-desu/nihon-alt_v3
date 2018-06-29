@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Link, NavLink }  from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getMaterials } from "../../store/actions/";
+import classnames from "classnames";
+import { getMaterials, addLike, removeLike } from "../../store/actions/";
 import Spinner from "../../components/UI/Spinner";
 
 class Pages extends Component {
@@ -31,6 +32,18 @@ class Pages extends Component {
 		if(gradeChange || unitChange || partChange) {
 			this.props.onGetMaterials(nextParams);
 		}
+	}
+	onLikeClick = itemId => {
+		this.props.onAddLike(itemId);
+	};
+	onUnlikeClick = itemId => {
+		this.props.onRemoveLike(itemId);
+	};
+	findUserLikes = likes => {
+		const {authUser} = this.props;
+		if(likes.filter(like => like.user === authUser.id).length > 0) {
+			return true;
+		} else { return false }
 	}
 	render() {
 		if(this.props.loading) {
@@ -79,6 +92,28 @@ class Pages extends Component {
 			      <p className="card-text">
 			      	<a href={item.filePath}>Download this file.</a>
 			      </p>
+			      {this.props.authStatus ? (
+            	<span>
+            		<button 
+		            type="button" 
+		            className="btn btn-light mr-1"
+		            onClick={() => this.onLikeClick(item._id)}>
+		              <i className={classnames("fas fa-thumbs-up", {
+		              	"text-info": this.findUserLikes(item.likes)
+		              })}></i>
+		              <span className="badge badge-light">{item.likes.length}</span>
+		            </button>
+		            <button 
+		            type="button" 
+		            className="btn btn-light mr-1"
+		            onClick={() => this.onUnlikeClick(item._id)}>
+		              <i className="text-secondary fas fa-thumbs-down"></i>
+		            </button>
+		            {/*<Link to={`/page/${item._id}`} className="btn btn-info mr-1">
+		              Comments
+		            </Link>*/}
+            	</span>
+            ) : null}
 			    </div>
 			    <div className="card-footer text-muted">
 			    	Submitted by {item.username.split(" ")[0]}
@@ -135,14 +170,20 @@ class Pages extends Component {
 }
 
 Pages.propTypes = {
+	authUser: PropTypes.object.isRequired,
+	authStatus: PropTypes.bool.isRequired,
 	materials: PropTypes.array.isRequired,
 	unitParts: PropTypes.array.isRequired,
 	errors: PropTypes.object.isRequired,
 	loading: PropTypes.bool.isRequired,
-	onGetMaterials: PropTypes.func.isRequired
+	onGetMaterials: PropTypes.func.isRequired,
+	onAddLike: PropTypes.func.isRequired,
+	onRemoveLike: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
+	authUser: state.auth.user,
+	authStatus: state.auth.isAuthenticated,
 	materials: state.materials.materials,
 	unitParts: state.materials.unitParts,
 	errors: state.errors,
@@ -150,7 +191,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onGetMaterials: params => dispatch(getMaterials(params))
+	onGetMaterials: params => dispatch(getMaterials(params)),
+	onAddLike: itemId => dispatch(addLike(itemId)),
+	onRemoveLike: itemId => dispatch(removeLike(itemId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pages);
