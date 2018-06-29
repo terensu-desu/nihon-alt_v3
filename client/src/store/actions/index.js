@@ -7,7 +7,9 @@ export {
 } from "./authActions";
 export {
 	uploadMaterial,
-	getMaterials
+	getMaterials,
+	addLike,
+	removeLike
 } from "./materialActions";
 export { initializeBlog } from "./blogActions";
 export { handleSearch } from "./searchActions";

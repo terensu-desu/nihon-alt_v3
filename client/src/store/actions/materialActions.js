@@ -49,3 +49,21 @@ export const getMaterials = ({grade, unit, part}) => dispatch => {
 			});
 		});
 };
+
+/* ADD LIKES */
+export const addLike = itemId => dispatch => {
+	axios.post(`/api/materials/like/${itemId}`)
+		.then(res => {
+			dispatch({
+				type: types.CLEAR_ERRORS
+			});
+		})
+		.catch(err => console.log(err));
+}
+
+/* REMOVE LIKES */
+export const removeLike = itemId => dispatch => {
+	axios.post(`/api/materials/unlike/${itemId}`)
+		.then()
+		.catch(err => console.log(err));
+}
