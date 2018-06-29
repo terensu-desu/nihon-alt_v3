@@ -1,8 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import Spinner from "../UI/Spinner";
 
 class SearchResults extends Component {
 	render() {
+		if(this.props.loading) {
+			return <Spinner />;
+		}
 		let chunkSize = 3;
 		let screenWidth = window.innerWidth;
 		if(screenWidth >= 576 && screenWidth <= 991) {
@@ -29,6 +34,7 @@ class SearchResults extends Component {
 					alt="I M A G E" />
 			    <div className="card-body">
 			      <h5 className="card-title">{item.title}</h5>
+			      <p className="small file-details">{item.grade.toUpperCase()}, {item.unit.toUpperCase()}, {item.part.toUpperCase()}</p>
 			      <p className="card-text">
 			      {item.instructions}
 			      </p>
@@ -68,8 +74,14 @@ class SearchResults extends Component {
 	}
 }
 
+SearchResults.propTypes = {
+	query: PropTypes.string,
+	loading: PropTypes.bool.isRequired,
+	results: PropTypes.array.isRequired
+}
+
 const mapStateToProps = state => ({
-	loading: state.loading,
+	loading: state.loading.loading,
 	query: state.search.query,
 	results: state.search.results
 });
