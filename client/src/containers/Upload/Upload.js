@@ -67,6 +67,7 @@ class Upload extends Component {
 					placeholder="* Title (Eg. Battleship - Marvel Characters Version)"
 					value={this.state.title}
 					error={errors.title}
+					extraClass="form-control-lg"
 					onChange={this.onChange}
 				/>
 				<TextAreaFieldGroup
@@ -74,6 +75,7 @@ class Upload extends Component {
 					placeholder="* Detailed instructions"
 					value={this.state.instructions}
 					error={errors.instructions}
+					extraClass="form-control-lg"
 					info="Instructions should explain the basic use of the exercise."
 					onChange={this.onChange}
 				/>
@@ -81,6 +83,7 @@ class Upload extends Component {
 					gradeValue={this.state.grade}
 					unitValue={this.state.unit}
 					partValue={this.state.part}
+					extraClass="form-control-lg"
 					onChange={this.onChange}
 					errors={errors}
 				/>
@@ -89,6 +92,7 @@ class Upload extends Component {
 					placeholder="Keywords"
 					value={this.state.keywords}
 					error={errors.keywords}
+					extraClass="form-control-lg"
 					onChange={this.onChange}
 					info="Separate keywords with commas."
 				/>
