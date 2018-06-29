@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
 import { handleSearch } from "../../store/actions/";
+import TextFieldGroup from "../../components/UI/TextFieldGroup";
 
 class SearchBar extends Component {
 	state = {	query: "" };
@@ -29,20 +31,29 @@ class SearchBar extends Component {
 				</a>
 				<div className="dropdown-menu" aria-labelledby="navbarDropdown">
 					<form className="form-inline p-2" onSubmit={this.onSubmit}>
-						{/* TODO: Adjust TextFieldGroup to take in className and aria-label */}
-				    <input 
-				    className="form-control" 
-				    type="search" 
-				    placeholder="Search" 
-				    aria-label="Search" 
-				    value={this.state.query}
-				    onChange={this.onChange}/>
-				    <button className="btn btn-outline mt-2 mx-auto" type="submit">Search</button>
+						{/* TODO: Adjust TextFieldGroup to take aria-label */}
+						<TextFieldGroup 
+							name="search"
+							placeholder="Search"
+							value={this.state.query}
+							error={""}
+							onChange={this.onChange}
+						/>				    
+				    <button 
+					    className="btn btn-outline mt-2 mx-auto" 
+					    type="submit"
+							disabled={this.state.query === ""}>
+							Search
+						</button>
 				  </form>
 				</div>
 			</li>
 		);
 	}
+}
+
+SearchBar.propTypes = {
+	onHandleSearch: PropTypes.func.isRequired
 }
 
 const mapDispatchToProps = dispatch => ({
