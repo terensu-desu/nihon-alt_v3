@@ -8,7 +8,7 @@ const jhsyear3 = props => (
 			<a
 				className="nav-link dropdown-toggle"
 				href="#!"
-				id="navbarDropdown"
+				id="jhsy3Dropdown"
 				role="button"
 				data-toggle="dropdown"
 				aria-haspopup="true"

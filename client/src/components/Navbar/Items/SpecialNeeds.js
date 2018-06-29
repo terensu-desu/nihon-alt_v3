@@ -8,7 +8,7 @@ const specialNeeds = props => (
 			<a
 				className="nav-link dropdown-toggle"
 				href="#!"
-				id="navbarDropdown"
+				id="snDropdown"
 				role="button"
 				data-toggle="dropdown"
 				aria-haspopup="true"
