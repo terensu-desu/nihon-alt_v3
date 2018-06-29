@@ -1,3 +1,7 @@
+body {
+  background-color: #f8f8f8;
+}
+
 .main {
   min-height: calc(100vh - 80px);
 }
@@ -25,6 +29,18 @@
 
 .super-active {
   color: gold !important;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+}
+
+.file-details {
+  text-align: center;
+  background-color: #bc002d;
+  padding: .5rem;
+  border-radius: 8px;
+  color: #fff;
 }
 
 .footer {
