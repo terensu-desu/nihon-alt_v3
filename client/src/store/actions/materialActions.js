@@ -55,7 +55,8 @@ export const addLike = itemId => dispatch => {
 	axios.post(`/api/materials/like/${itemId}`)
 		.then(res => {
 			dispatch({
-				type: types.CLEAR_ERRORS
+				type: types.UPDATE_MATERIAL,
+				payload: res.data
 			});
 		})
 		.catch(err => console.log(err));
@@ -64,6 +65,11 @@ export const addLike = itemId => dispatch => {
 /* REMOVE LIKES */
 export const removeLike = itemId => dispatch => {
 	axios.post(`/api/materials/unlike/${itemId}`)
-		.then()
+		.then(res => {
+			dispatch({
+				type: types.UPDATE_MATERIAL,
+				payload: res.data
+			});
+		})
 		.catch(err => console.log(err));
 }
