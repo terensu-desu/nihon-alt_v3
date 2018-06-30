@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link, NavLink }  from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getMaterials, addLike, removeLike } from "../../store/actions/";
+import { getMaterials } from "../../store/actions/";
 import Spinner from "../../components/UI/Spinner";
-import Likes from "../../components/UI/Likes";
+import Card from "../../components/UI/Card";
 
 class Pages extends Component {
 	componentDidMount() {
@@ -32,18 +32,6 @@ class Pages extends Component {
 		if(gradeChange || unitChange || partChange) {
 			this.props.onGetMaterials(nextParams);
 		}
-	}
-	onLikeClick = itemId => {
-		this.props.onAddLike(itemId);
-	};
-	onUnlikeClick = itemId => {
-		this.props.onRemoveLike(itemId);
-	};
-	findUserLikes = likes => {
-		const {authUser} = this.props;
-		if(likes.filter(like => like.user === authUser.id).length > 0) {
-			return true;
-		} else { return false }
 	}
 	render() {
 		if(this.props.loading) {
@@ -79,30 +67,20 @@ class Pages extends Component {
 		);
 		if(this.props.materials.length > 0) {
 			list = this.props.materials.map(item => (
-				<div className="card" key={item._id}>
-					<img 
-					className="card-img-top"
-					src="https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b1a117c92ca0030b584bfd26c70bc659&auto=format&fit=crop&w=1375&q=80" 
-					alt="I M A G E" />
-			    <div className="card-body">
-			      <h5 className="card-title">{item.title}</h5>
-			      <p className="card-text">
-			      {item.instructions}
-			      </p>
-			      <p className="card-text">
-			      	<a href={item.filePath}>Download this file.</a>
-			      </p>
-			      <Likes 
-			      	auth={this.props.authStatus}
-			      	likes={item.likes.length}
-			      	onLikeClick={() => this.onLikeClick(item._id)}
-			      	onUnlikeClick={() => this.onUnlikeClick(item._id)}
-			      	findUserLikes={() => this.findUserLikes(item.likes)} />
-			    </div>
-			    <div className="card-footer text-muted">
-			    	Submitted by {item.username.split(" ")[0]}
-			    </div>
-				</div>
+				<Card 
+					key={item._id}
+					title={item.title}
+					instructions={item.instructions}
+					filePath={item.filePath}
+					imagePage={item.imagePage}
+					likes={item.likes}
+					id={item._id}
+					username={item.username}
+					grade={item.grade}
+					unit={item.unit}
+					part={item.part}
+					authStatus={this.props.authStatus}
+				/>				
 			));
 			let listChunks = [];
 			for(let i = 0; i < list.length; i += chunkSize) {
@@ -160,9 +138,7 @@ Pages.propTypes = {
 	unitParts: PropTypes.array.isRequired,
 	errors: PropTypes.object.isRequired,
 	loading: PropTypes.bool.isRequired,
-	onGetMaterials: PropTypes.func.isRequired,
-	onAddLike: PropTypes.func.isRequired,
-	onRemoveLike: PropTypes.func.isRequired
+	onGetMaterials: PropTypes.func.isRequired
 }
 
 const mapStateToProps = state => ({
@@ -176,8 +152,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onGetMaterials: params => dispatch(getMaterials(params)),
-	onAddLike: itemId => dispatch(addLike(itemId)),
-	onRemoveLike: itemId => dispatch(removeLike(itemId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pages);

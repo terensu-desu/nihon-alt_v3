@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import Card from "../UI/Card";
 import Spinner from "../UI/Spinner";
 
 class SearchResults extends Component {
@@ -27,25 +28,20 @@ class SearchResults extends Component {
 		);
 		if(this.props.results.length > 0) {
 			displayResults = this.props.results.map(item => (
-				<div className="card" key={item._id}>
-					<img 
-					className="card-img-top"
-					src="https://images.unsplash.com/photo-1517960413843-0aee8e2b3285?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b1a117c92ca0030b584bfd26c70bc659&auto=format&fit=crop&w=1375&q=80" 
-					alt="I M A G E" />
-			    <div className="card-body">
-			      <h5 className="card-title">{item.title}</h5>
-			      <p className="small file-details">{item.grade.toUpperCase()}, {item.unit.toUpperCase()}, {item.part.toUpperCase()}</p>
-			      <p className="card-text">
-			      {item.instructions}
-			      </p>
-			      <p className="card-text">
-			      	<a href={item.filePath}>Download this file.</a>
-			      </p>
-			    </div>
-			    <div className="card-footer text-muted">
-			    	Submitted by {item.username.split(" ")[0]}
-			    </div>
-				</div>
+				<Card 
+					key={item._id}
+					title={item.title}
+					instructions={item.instructions}
+					filePath={item.filePath}
+					imagePage={item.imagePage}
+					likes={item.likes}
+					id={item._id}
+					username={item.username}
+					grade={item.grade}
+					unit={item.unit}
+					part={item.part}
+					authStatus={this.props.authStatus}
+				/>
 			));
 			let listChunks = [];
 			for(let i = 0; i < displayResults.length; i += chunkSize) {
@@ -77,11 +73,13 @@ class SearchResults extends Component {
 SearchResults.propTypes = {
 	query: PropTypes.string,
 	loading: PropTypes.bool.isRequired,
+	authStatus: PropTypes.bool.isRequired,
 	results: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
 	loading: state.loading.loading,
+	authStatus: state.auth.isAuthenticated,
 	query: state.search.query,
 	results: state.search.results
 });
