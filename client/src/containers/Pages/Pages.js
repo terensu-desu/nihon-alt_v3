@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { Link, NavLink }  from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import classnames from "classnames";
 import { getMaterials, addLike, removeLike } from "../../store/actions/";
 import Spinner from "../../components/UI/Spinner";
+import Likes from "../../components/UI/Likes";
 
 class Pages extends Component {
 	componentDidMount() {
@@ -92,28 +92,12 @@ class Pages extends Component {
 			      <p className="card-text">
 			      	<a href={item.filePath}>Download this file.</a>
 			      </p>
-			      {this.props.authStatus ? (
-            	<span>
-            		<button 
-		            type="button" 
-		            className="btn btn-light mr-1"
-		            onClick={() => this.onLikeClick(item._id)}>
-		              <i className={classnames("fas fa-thumbs-up", {
-		              	"text-info": this.findUserLikes(item.likes)
-		              })}></i>
-		              <span className="badge badge-light">{item.likes.length}</span>
-		            </button>
-		            <button 
-		            type="button" 
-		            className="btn btn-light mr-1"
-		            onClick={() => this.onUnlikeClick(item._id)}>
-		              <i className="text-secondary fas fa-thumbs-down"></i>
-		            </button>
-		            {/*<Link to={`/page/${item._id}`} className="btn btn-info mr-1">
-		              Comments
-		            </Link>*/}
-            	</span>
-            ) : null}
+			      <Likes 
+			      	auth={this.props.authStatus}
+			      	likes={item.likes.length}
+			      	onLikeClick={() => this.onLikeClick(item._id)}
+			      	onUnlikeClick={() => this.onUnlikeClick(item._id)}
+			      	findUserLikes={() => this.findUserLikes(item.likes)} />
 			    </div>
 			    <div className="card-footer text-muted">
 			    	Submitted by {item.username.split(" ")[0]}
