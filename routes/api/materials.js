@@ -287,8 +287,8 @@ router.post(
 				const removeIndex = material.likes
 					.map(like => like.user.toString())
 					.indexOf(req.user.id);
-				material.likes.slice(removeIndex, 1);
-				material.save().then(post => res.json(post));
+				material.likes.splice(removeIndex, 1);
+				material.save().then(material => res.json(material));
 			})
 			.catch(err => {
 				return res
