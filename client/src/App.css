@@ -36,11 +36,7 @@ body {
 }
 
 .file-details {
-  text-align: center;
-  background-color: #bc002d;
-  padding: .5rem;
-  border-radius: 8px;
-  color: #fff;
+  margin-bottom: 0;
 }
 
 .footer {
