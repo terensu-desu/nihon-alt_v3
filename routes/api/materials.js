@@ -102,26 +102,31 @@ router.get("/:grade/:unit/:part", (req, res) => {
 // @access  Public
 router.post("/search", (req, res) => {
 	const queries = req.body.query.split(/[ ,.]+/);
-	const query = new RegExp(req.body.query, "i");
 	Material.find({})
 		.then(allMaterials => {
 			let results = [];
 			for(let material of allMaterials) {
-				for(let keyword of queries) {
-					if(material.title.toLowerCase().includes(keyword.toLowerCase())) {
+				for(let query of queries) {
+					if(material.title.toLowerCase().includes(query.toLowerCase())) {
 						results.push(material);
 					} else if(material.keywords) {
 						let match = false;
 						for(let word of material.keywords) {
-							if(word.toLowerCase().includes(keyword.toLowerCase())) {
+							if(word.toLowerCase().includes(query.toLowerCase())) {
 								match = true;
 							}
 						}
 						if(match) {
 							results.push(material);
 						}
-					} else if(material.instructions.toLowerCase().includes(keyword.toLowerCase())) {
+					} else if(material.instructions.toLowerCase().includes(query.toLowerCase())) {
 						results.push(material);
+					} 
+					if(material.grade.includes(query.toLowerCase())) {
+						results.push(material);
+					} 
+					if(material.unit.includes(query.toLowerCase())) {
+						results.push(material)
 					}
 				}
 			}
