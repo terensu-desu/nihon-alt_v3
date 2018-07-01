@@ -9,9 +9,10 @@ const blogListItem = ({blog}) => {
 			<div className="d-flex w-100 justify-content-between">
 				<h5 className="mb-1">{blog.title}</h5>
 				<small>{blog.date}</small>
+				<small>{blog.user}</small>
 			</div>
 			<p className="mb-1">
-				{`${blog.preview.slice(0, 300)}...`}
+				{`${blog.content.slice(0, 280)}...`}
 			</p>
 			<small>Click to read and comment</small>
 		</a>

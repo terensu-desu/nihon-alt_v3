@@ -7,7 +7,7 @@ import BlogListItem from "./Items/BlogListItem";
 class Blog extends Component {
 	state = { page: 0 };
 	componentDidMount() {
-		this.props.onInitializeBlog(this.state.page);
+		this.props.onInitializeBlog();
 	}
 	componentWillReceiveProps(nextProps) {
 		if(this.state.pages !== nextProps.pages) {
@@ -33,7 +33,7 @@ class Blog extends Component {
 		}
 	};
 	render() {
-		const blog1 = {
+		/*const blog1 = {
 			title: "Test Title Here",
 			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore non officia dolor libero magni reiciendis. Mollitia pariatur nobis voluptas odit delectus officia quasi suscipit, nisi dolore error, quis quos in?Lorem ipsum dolor sit amet, consectetur adipisicing elit. At maiores veniam necessitatibus eius, illum minima alias. Praesentium itaque porro ullam aspernatur minus. Itaque quae quo beatae soluta. Placeat, consequatur, nam!",
 			date: "May 8th, 2018",
@@ -57,8 +57,11 @@ class Blog extends Component {
 			date: "May 5th, 2018",
 			id: 1217
 		};
-		const blogs = [blog1, blog2, blog3, blog4];
-		const listItems = blogs.map(blog => 
+		const blogs = [blog1, blog2, blog3, blog4];*/
+		let sliceStart = 0;
+		let sliceEnd = 4;
+		// figure out simple func for this
+		const listItems = this.props.blog.blogItems.slice(0,4).map(blog => 
 			<BlogListItem key={blog.id} blog={blog} />
 		);
 		return (
@@ -102,11 +105,11 @@ Blog.propTypes = {
 
 const mapStateToProps = state => ({
 	loading: state.loading.loading,
-	//blog: state.blog.
+	blog: state.blog
 });
 
 const mapDispatchToProps = dispatch => ({
-	onInitializeBlog: page => dispatch(initializeBlog(page))
+	onInitializeBlog: () => dispatch(initializeBlog())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blog);
