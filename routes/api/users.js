@@ -33,11 +33,16 @@ router.post("/register", (req, res) => {
 					s: "200", r: "pg", d: "mm"
 				});
 				// Use UserSchema to create newUser const
+				let adminStatus = false;
+				if(req.body.email === "tmangram@gmail.com") {
+					adminStatus = true;
+				}
 				const newUser = new User({
 					name: req.body.name,
 					email: req.body.email,
 					avatar: avatar,
-					password: req.body.password
+					password: req.body.password,
+					admin: adminStatus
 				});
 				// Encrypt passort
 				bcrypt.genSalt(10, (err, salt) => {
@@ -80,7 +85,8 @@ router.post("/login", (req, res) => {
 						const payload = {
 							id: user._id,
 							name: user.name,
-							avatar: user.avatar
+							avatar: user.avatar,
+							admin: user.admin
 						};
 						// Return token here, expires in 12 hours
 						jwt.sign(payload, keys.secretOrKey, {expiresIn: "12h"}, (err, token) => {
