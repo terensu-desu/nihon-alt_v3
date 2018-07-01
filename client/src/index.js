@@ -8,6 +8,7 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 
 import authReducer from "./store/reducers/authReducer";
+import blogReducer from "./store/reducers/blogReducer";
 import materialReducer from "./store/reducers/materialReducer";
 import searchReducer from "./store/reducers/searchReducer";
 import uploadReducer from "./store/reducers/uploadReducer";
@@ -16,6 +17,7 @@ import loadingReducer from "./store/reducers/loadingReducer";
 
 const rootReducer = combineReducers({
 	auth: authReducer,
+	blog: blogReducer,
 	materials: materialReducer,
 	search: searchReducer,
 	upload: uploadReducer,
