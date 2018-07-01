@@ -18,11 +18,12 @@ class Upload extends Component {
 		part: "",
 		keywords: "",
 		file: "",
-		fileUpload: "Choose File"
+		fileUpload: "Choose File",
+		showToast: false
 	};
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.uploadSuccess) {
-				this.setState({
+			this.setState({
 				title: "",
 				instructions: "",
 				grade: "",
@@ -30,8 +31,12 @@ class Upload extends Component {
 				part: "",
 				keywords: "",
 				file: "",
-				fileUpload: "Choose File"
+				fileUpload: "Choose File",
+				showToast: true
 			});
+			setTimeout(() => {
+				this.setState({ showToast: false });
+			}, 2000);	
 		}
 	}
 	onSubmit = event => {
@@ -60,6 +65,14 @@ class Upload extends Component {
 	};
 	render() {
 		const errors = this.props.errors || {};
+		let toastStyle = {
+			transform: "translateY(-100vh)"
+		};
+		if(this.state.showToast) {
+			toastStyle = {
+				transform: "translateY(0)"
+			};
+		}
 		let form = (
 			<Aux>
 				<TextFieldGroup 
@@ -119,6 +132,9 @@ class Upload extends Component {
 							{form}
 						</form>
 					</div>
+				</div>
+				<div className="toast" style={toastStyle}>
+					<span>Thanks your contribution!</span>
 				</div>
 			</div>
 		);
