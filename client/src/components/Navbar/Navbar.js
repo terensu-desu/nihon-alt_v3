@@ -37,6 +37,13 @@ class Navbar extends Component {
 							Upload
 						</NavLink>
 					</li>
+					{this.props.auth.user.admin && (
+							<li className="nav-item mr-2">
+								<NavLink className="nav-link" to="/admin">
+									Admin
+								</NavLink>
+							</li>
+						)}
 					<li className="nav-item">
 						<a className="nav-link" href="#!" onClick={this.handleLogoutClick}>
 							<img
