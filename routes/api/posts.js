@@ -70,4 +70,63 @@ router.get(
 	}
 );
 
+// @router  POST api/blog/like/:id
+// @desc    Like a blog
+// @access  Private
+router.post(
+	"/like/:id",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		Post.findById(req.params.id)
+			.then(foundPost => {
+				if (
+					foundPost.likes.filter(like => like.user.toString() === req.user.id)
+						.length > 0
+				) {
+					return res
+						.status(400)
+						.json({ alreadyliked: "User aleady liked this item." });
+				}
+				foundPost.likes.unshift({ user: req.user.id });
+				foundPost.save().then(updatedPost => res.json(updatedPost));
+			})
+			.catch(err => {
+				return res
+					.status(400)
+					.json({ postnotfound: "Requested post not found." });
+			});
+	}
+);
+
+// @router  POST api/materials/unlike/:id
+// @desc    Unlike a material
+// @access  Private
+router.post(
+	"/unlike/:id",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		Post.findById(req.params.id)
+			.then(foundPost => {
+				if (
+					foundPost.likes.filter(like => like.user.toString() === req.user.id)
+						.length === 0
+				) {
+					return res
+						.status(400)
+						.json({ notliked: "User has not liked this item." });
+				}
+				const removeIndex = foundPost.likes
+					.map(like => like.user.toString())
+					.indexOf(req.user.id);
+				foundPost.likes.splice(removeIndex, 1);
+				foundPost.save().then(updatedPost => res.json(updatedPost));
+			})
+			.catch(err => {
+				return res
+					.status(400)
+					.json({ postnotfound: "Requested post not found." });
+			});
+	}
+);
+
 module.exports = router;
