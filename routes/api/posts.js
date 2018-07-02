@@ -18,11 +18,25 @@ router.get("/test", (req, res) => res.json({ msg: "Posts works" }));
 // @access Public
 router.get("/", (req, res) => {
 	Post.find({})
+		.sort({ date: -1 })
 		.then(foundPosts => {
 			res.json(foundPosts);
 		})
 		.catch(err => {
 			console.log("Error in get all post ", err);
+		});
+});
+
+// @router GET api/posts/:id
+// @desc   Get a blog post
+// @access Public
+router.get("/:id", (req, res) => {
+	Post.findById(req.params.id)
+		.then(foundPost => {
+			res.json(foundPost);
+		})
+		.catch(err => {
+			console.log("Error in get a post ", err);
 		});
 });
 
