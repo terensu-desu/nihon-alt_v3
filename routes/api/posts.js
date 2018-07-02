@@ -129,4 +129,32 @@ router.post(
 	}
 );
 
+router.post(
+	"/comment/:id",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		if (req.body.content.length < 10) {
+			return res
+				.status(400)
+				.json({ comment: "Comment requires a minimum of 10 characters." });
+		}
+		Post.findById(req.params.id)
+			.then(foundPost => {
+				const newComment = {
+					text: req.body.content,
+					name: req.body.name,
+					avatar: req.body.avatar,
+					user: req.user.id
+				};
+				foundPost.comments.unshift(newComment);
+				foundPost.save().then(post => res.json(post));
+			})
+			.catch(err => {
+				return res
+					.status(400)
+					.json({ postnotfound: "Requested post not found." });
+			});
+	}
+);
+
 module.exports = router;
