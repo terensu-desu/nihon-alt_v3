@@ -5,6 +5,7 @@ import {
 	retrieveArticle,
 	addArticleLike,
 	removeArticleLike } from "../../../store/actions/";
+import CommentField from "./CommentField";
 import Likes from "../../../components/UI/Likes";
 
 class BlogArticle extends Component {
@@ -25,6 +26,12 @@ class BlogArticle extends Component {
 	};
 	render() {
 		const { article, authStatus } = this.props;
+		let comments = <li className="list-group-item">Try comment</li>;
+		if(article.comments && article.comments.length > 0) {
+			comments = article.comments.map(comment => (
+				<li key={comment._id} className="list-group-item">{comment.text}</li>
+			));
+		}
 		return (
 			<div className="container">
 				<div className="row">
@@ -32,8 +39,12 @@ class BlogArticle extends Component {
 						<div className="card">
 						  <div className="card-body">
 						    <h5 className="card-title">{article.title}</h5>
-						    <h6 className="card-subtitle mb-2 text-muted">by {article.name}</h6>
-						    <small><Moment format="YYYY/MM/DD">{article.date}</Moment></small>
+						    <h6 className="card-subtitle mb-2 text-muted">
+							    by {article.name}
+						    </h6>
+						    <small>
+						    	<Moment format="YYYY/MM/DD">{article.date}</Moment>
+						    </small>
 						    <p className="card-text">{article.content}</p>
 						    <p className="card-text">Like this article?</p>
 						    <Likes 
@@ -42,6 +53,18 @@ class BlogArticle extends Component {
 				      	onLikeClick={() => this.onLikeClick(article._id)}
 				      	onUnlikeClick={() => this.onUnlikeClick(article._id)}
 				      	findUserLikes={() => this.findUserLikes(article.likes)} />
+						  </div>
+						  <div className="card-footer text-muted">
+						    Comments - <small>{
+						    	article.comments 
+						    	? article.comments.length 
+						    	: `0`} comments</small>
+						  </div>
+						  <div className="card-body">
+						  	<ul className="list-group list-group-flush">
+						  		{comments}
+						  	</ul>
+						  	<CommentField articleId={article._id} />
 						  </div>
 						</div>
 					</div>
