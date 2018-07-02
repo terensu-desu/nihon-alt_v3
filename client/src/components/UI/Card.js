@@ -23,13 +23,13 @@ class Card extends Component {
 			instructions,
 			filePath,
 			likes,
-			id,
-			authStatus,
+			_id: id,
 			username,
 			grade,
 			unit,
 			part
-		} = this.props;
+		} = this.props.item;
+		const { authStatus } = this.props;
 		const gradeString = grade.toUpperCase().replace(/\d/, " ") + grade.slice(-1);
 		const unitString = unit.toUpperCase().replace(/\d/, " ") + unit.slice(-1);
 		const partString = part.toUpperCase().replace(/\d/, " ") + part.slice(-1);
@@ -56,6 +56,9 @@ class Card extends Component {
 		      	onLikeClick={() => this.onLikeClick(id)}
 		      	onUnlikeClick={() => this.onUnlikeClick(id)}
 		      	findUserLikes={() => this.findUserLikes(likes)} />
+		      	{/*<Link to={`/page/${item._id}`} className="btn btn-info mr-1">
+			        Comments
+			      </Link>*/}
 		    </div>
 		    <div className="card-footer text-muted">
 		    	Submitted by {username.split(" ")[0]}
