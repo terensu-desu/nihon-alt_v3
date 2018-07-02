@@ -9,19 +9,14 @@ class Blog extends Component {
 	componentDidMount() {
 		this.props.onInitializeBlog();
 	}
-	componentWillReceiveProps(nextProps) {
-		if(this.state.pages !== nextProps.pages) {
-			this.props.onInitializeBlog(nextProps.page);
-		}
-	}
 	handleNextClick = () => {
-		//if(this.state.page !== this.props.lastPage) {
+		if(this.state.page !== this.props.blog.pageMax - 1) {
 			this.setState(prevState => {
 				return {
 					page: prevState.page + 1
 				}
 			});
-		//}
+		}
 	};
 	handlePrevClick = () => {
 		if(this.state.page !== 0) {
@@ -33,42 +28,16 @@ class Blog extends Component {
 		}
 	};
 	render() {
-		/*const blog1 = {
-			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore non officia dolor libero magni reiciendis. Mollitia pariatur nobis voluptas odit delectus officia quasi suscipit, nisi dolore error, quis quos in?Lorem ipsum dolor sit amet, consectetur adipisicing elit. At maiores veniam necessitatibus eius, illum minima alias. Praesentium itaque porro ullam aspernatur minus. Itaque quae quo beatae soluta. Placeat, consequatur, nam!",
-			date: "May 8th, 2018",
-			id: 1214
-		};
-		const blog2 = {
-			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus",
-			date: "May 7th, 2018",
-			id: 1215
-		};
-		const blog3 = {
-			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus",
-			date: "May 6th, 2018",
-			id: 1216
-		};
-		const blog4 = {
-			title: "Test Title Here",
-			preview: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod sunt quo sapiente recusandae modi natus",
-			date: "May 5th, 2018",
-			id: 1217
-		};
-		const blogs = [blog1, blog2, blog3, blog4];*/
-		let sliceStart = 0;
-		let sliceEnd = 4;
-		// figure out simple func for this
-		const listItems = this.props.blog.blogItems.slice(0,4).map(blog => 
-			<BlogListItem key={blog.id} blog={blog} />
+		const chunkArray = [[0, 4], [4, 8], [8, 12], [12, 16]];
+		let sliceChunk = chunkArray[this.state.page];
+		const listItems = this.props.blog.blogItems.slice(sliceChunk[0], sliceChunk[1]).map(blog => 
+			<BlogListItem key={blog._id} blog={blog} />
 		);
 		return (
 			<div className="container">
 				<div className="row">
 					<div className="col-md-12">
-						<h2 className="text-center">Otsukare News {this.state.page}</h2>
+						<h2 className="text-center">Otsukare News</h2>
 						<div className="list-group">
 						  {listItems}
 						</div>
