@@ -201,7 +201,7 @@ router.post(
 					avatar: req.body.avatar,
 					user: req.user.id
 				};
-				material.comment.unshift(newComment);
+				material.comments.unshift(newComment);
 				material.save().then(material => res.json(material));
 			})
 			.catch(err => {
