@@ -44,9 +44,6 @@ const likes = props => {
 		<span>
   		{likeButton}
   		{dislikeButton}
-      {/*<Link to={`/page/${item._id}`} className="btn btn-info mr-1">
-        Comments
-      </Link>*/}
   	</span>
 	);
 };
