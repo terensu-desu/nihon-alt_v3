@@ -8,6 +8,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Banner from "./components/Banner/Banner";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Blog from "./containers/Blog/Blog";
+import BlogArticle from "./containers/Blog/Items/BlogArticle";
 import Register from "./containers/Auth/Register";
 import Login from "./containers/Auth/Login";
 import Pages from "./containers/Pages/Pages";
@@ -30,6 +31,7 @@ class App extends Component {
             <Banner />
             <Switch>
               <Route exact path="/" component={Blog} />
+              <Route path="/blog/:id" component={BlogArticle} />
               <Route path="/register" component={Register} />
               <Route path="/login" component={Login} />
               <Route path="/pages/:grade/:unit/:part" component={Pages}/>
