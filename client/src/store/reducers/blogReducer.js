@@ -20,6 +20,11 @@ const reducer = (state = initialState, action) => {
 				...state,
 				targetArticle: action.payload
 			};
+		case types.UPDATE_ARTICLE:
+			return {
+				...state,
+				targetArticle: action.payload
+			}
 		default:
 			return state;
 	}

@@ -11,5 +11,9 @@ export {
 	addLike,
 	removeLike
 } from "./materialActions";
-export { initializeBlog, retrieveArticle } from "./blogActions";
+export { 
+	initializeBlog,
+	retrieveArticle,
+	addArticleLike,
+	removeArticleLike } from "./blogActions";
 export { handleSearch } from "./searchActions";

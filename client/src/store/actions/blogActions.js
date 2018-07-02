@@ -30,3 +30,27 @@ export const retrieveArticle = id => dispatch => {
 			console.log(err);
 		});
 };
+
+/* ADD LIKES */
+export const addArticleLike = itemId => dispatch => {
+	axios.post(`/api/posts/like/${itemId}`)
+		.then(res => {
+			dispatch({
+				type: types.UPDATE_ARTICLE,
+				payload: res.data
+			});
+		})
+		.catch(err => console.log(err));
+}
+
+/* REMOVE LIKES */
+export const removeArticleLike = itemId => dispatch => {
+	axios.post(`/api/posts/unlike/${itemId}`)
+		.then(res => {
+			dispatch({
+				type: types.UPDATE_ARTICLE,
+				payload: res.data
+			});
+		})
+		.catch(err => console.log(err));
+}
