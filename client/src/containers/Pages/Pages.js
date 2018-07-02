@@ -69,16 +69,8 @@ class Pages extends Component {
 			list = this.props.materials.map(item => (
 				<Card 
 					key={item._id}
-					title={item.title}
-					instructions={item.instructions}
-					filePath={item.filePath}
-					imagePage={item.imagePage}
-					likes={item.likes}
-					id={item._id}
-					username={item.username}
-					grade={item.grade}
-					unit={item.unit}
-					part={item.part}
+					item={item}
+					authUser={this.props.authUser}
 					authStatus={this.props.authStatus}
 				/>				
 			));
