@@ -147,7 +147,7 @@ router.post(
 					user: req.user.id
 				};
 				foundPost.comments.unshift(newComment);
-				foundPost.save().then(post => res.json(post));
+				foundPost.save().then(updatedPost => res.json(updatedPost));
 			})
 			.catch(err => {
 				return res
@@ -156,5 +156,31 @@ router.post(
 			});
 	}
 );
+
+router.delete(
+	"/comment/:id/:comment_id",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		Post.findById(req.params.id)
+			.then(foundPost => {
+				if (
+					foundPost.comments.filter(
+						comment => comment._id.toString() === req.params.comment_id
+					).length === 0
+				) {
+					return res
+						.status(400)
+						.json({ commentnotfound: "Comment was not found." });
+				}
+				const removeIndex = foundPost.comments
+					.map(comment => comment._id.toString())
+					.indexOf(req.params.comment_id);
+				foundPost.comments.splice(removeIndex, 1);
+				foundPost.save().then(updatedPost => res.json(updatedPost));
+			})
+			.catch(err => {
+				return res.status(400).json({ postnotfound: "Requested post not found." });
+			});
+});
 
 module.exports = router;
