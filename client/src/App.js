@@ -37,6 +37,7 @@ class App extends Component {
               <Route path="/pages/:grade/:unit/:part" component={Pages}/>
               <Route path="/searchresults" component={SearchResults} />
               <PrivateRoute path="/upload" component={Upload} />
+              <PrivateRoute path="/admin" component={Upload} />
             </Switch>
           </div>
           <Footer />
