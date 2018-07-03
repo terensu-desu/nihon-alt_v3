@@ -16,7 +16,7 @@ class CommentField extends Component {
 			avatar: this.props.user.avatar
 		};
 		this.props.onSubmitComment(this.props.articleId, commentData);
-		this.setState({ cotent: "" });
+		this.setState({ content: "" });
 	}
 	render() {
 		const errors = this.props.errors || {};

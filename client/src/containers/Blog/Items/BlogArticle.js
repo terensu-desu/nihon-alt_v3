@@ -5,6 +5,7 @@ import {
 	retrieveArticle,
 	addArticleLike,
 	removeArticleLike } from "../../../store/actions/";
+import Comment from "./Comment";
 import CommentField from "./CommentField";
 import Likes from "../../../components/UI/Likes";
 
@@ -25,11 +26,15 @@ class BlogArticle extends Component {
 		} else { return false }
 	};
 	render() {
-		const { article, authStatus } = this.props;
+		const { article, authStatus, authUser } = this.props;
 		let comments = <li className="list-group-item">Try comment</li>;
 		if(article.comments && article.comments.length > 0) {
 			comments = article.comments.map(comment => (
-				<li key={comment._id} className="list-group-item">{comment.text}</li>
+				<Comment
+				key={comment._id}
+				authUser={authUser}
+				comment={comment}
+				articleId={article._id} />
 			));
 		}
 		return (
@@ -56,9 +61,8 @@ class BlogArticle extends Component {
 						  </div>
 						  <div className="card-footer text-muted">
 						    Comments - <small>{
-						    	article.comments 
-						    	? article.comments.length 
-						    	: `0`} comments</small>
+						    	article.comments && 
+						    	`${article.comments.length} comment${article.comments.length > 1 ? "s" : ""}`}</small>
 						  </div>
 						  <div className="card-body">
 						  	<ul className="list-group list-group-flush">
