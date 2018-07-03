@@ -57,10 +57,8 @@ export const removeArticleLike = itemId => dispatch => {
 
 /* ADD COMMENT */
 export const submitComment = (articleId, comment) => dispatch => {
-			console.log("dfsdfsdf")
 	axios.post(`/api/posts/comment/${articleId}`, comment)
 		.then(res => {
-			console.log(res)
 			dispatch({
 				type: types.UPDATE_ARTICLE,
 				payload: res.data
@@ -73,3 +71,21 @@ export const submitComment = (articleId, comment) => dispatch => {
 			});
 		});
 }
+
+/* DELETE COMMENT */
+export const deleteComment = (articleId, commentId) => dispatch => {
+	axios.delete(`/api/posts/comment/${articleId}/${commentId}`)
+		.then(res => {
+			dispatch({
+				type: types.UPDATE_ARTICLE,
+				payload: res.data
+			});
+		})
+		.catch(err => {
+			dispatch({
+				type: types.GET_ERRORS,
+				payload: err.response.data
+			});
+		});
+}
+

@@ -16,5 +16,6 @@ export {
 	retrieveArticle,
 	addArticleLike,
 	removeArticleLike,
-	submitComment } from "./blogActions";
+	submitComment,
+	deleteComment } from "./blogActions";
 export { handleSearch } from "./searchActions";
