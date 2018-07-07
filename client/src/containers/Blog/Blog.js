@@ -69,6 +69,7 @@ class Blog extends Component {
 
 Blog.propTypes = {
 	loading: PropTypes.bool.isRequired,
+	blog: PropTypes.object.isRequired,
 	onInitializeBlog: PropTypes.func.isRequired
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux"
+import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { 
 	retrieveArticle,
@@ -77,6 +78,15 @@ class BlogArticle extends Component {
 		);
 	}
 };
+
+BlogArticle.propTypes = {
+	authStatus: PropTypes.bool.isRequired,
+	authUser: PropTypes.object.isRequired,
+	article: PropTypes.object.isRequired,
+	onRetrieveArticle: PropTypes.func.isRequired,
+	onAddLike: PropTypes.func.isRequired,
+	onRemoveLike: PropTypes.func.isRequired
+}
 
 const mapStateToProps = state => ({
 	authStatus: state.auth.isAuthenticated,
