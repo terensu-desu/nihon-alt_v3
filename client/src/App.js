@@ -7,12 +7,14 @@ import { checkAuthState, logoutUser } from "./store/actions/";
 import Navbar from "./components/Navbar/Navbar";
 import Banner from "./components/Banner/Banner";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import AdminRoute from "./components/AdminRoute/AdminRoute";
 import Blog from "./containers/Blog/Blog";
 import BlogArticle from "./containers/Blog/Items/BlogArticle";
 import Register from "./containers/Auth/Register";
 import Login from "./containers/Auth/Login";
 import Pages from "./containers/Pages/Pages";
 import SearchResults from "./components/SearchResults/SearchResults";
+import Admin from "./components/Admin/Admin";
 import Upload from "./containers/Upload/Upload";
 import Footer from "./components/Footer/Footer";
 import Aux from "./hoc/Aux";
@@ -37,7 +39,7 @@ class App extends Component {
               <Route path="/pages/:grade/:unit/:part" component={Pages}/>
               <Route path="/searchresults" component={SearchResults} />
               <PrivateRoute path="/upload" component={Upload} />
-              <PrivateRoute path="/admin" component={Upload} />
+              <AdminRoute path="/admin" component={Admin} />
             </Switch>
           </div>
           <Footer />
