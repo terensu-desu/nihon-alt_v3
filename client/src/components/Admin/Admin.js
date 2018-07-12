@@ -1,9 +1,38 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
 import { connect } from "react-redux";
+import FlaggedComment from "./FlaggedComment";
 
 class Admin extends Component {
+	state = {
+		content: null,
+		type: null,
+		data: null
+	};
+	componentDidMount() {
+		this.setState({
+			content: null,
+			type: null,
+			data: null
+		});
+	}
+	handleClick = (type, data) => {
+		this.setState({
+			content: true,
+			type: type,
+			data: data
+		});
+	};
 	render() {
+		let displayContent = null;
+		if(this.state.content) {
+			if(this.state.type === "comment") {
+				displayContent = <FlaggedComment data={this.state.data} />;
+			} else if(this.state.type === "material") {
+				// displayContent = <ReviewMaterial data={this.state.data} />;
+			} else if(this.state.type === "blog") {
+				// displayContent = <CreateBlogEntry />;
+			}
+		}
 		return (
 			<div className="container">
 				<div className="row">
@@ -37,29 +66,30 @@ class Admin extends Component {
 				<div className="row mt-2">
 					{/* List of Alerts */}
 					<div className="col-md-2">
-						<ul class="list-group text-center card">
-						  <li class="list-group-item">
+						<ul className="list-group text-center card">
+						  <li className="list-group-item">
+						  	<a 
+						  	href="#!"
+						  	onClick={() => this.handleClick("comment", {article: "5b386e93e765401d7ba233e3", comment: "5b3fbdb8d1ea6f0014aa9c45"})}>
+						  		FLAGGED COMMENT
+						  	</a>
+						  </li>
+						  <li className="list-group-item">
 						  	<a href="#!">FLAGGED COMMENT</a>
 						  </li>
-						  <li class="list-group-item">
-						  	<a href="#!">FLAGGED COMMENT</a>
-						  </li>
-						  <li class="list-group-item">
-						  	<a href="#!">FLAGGED COMMENT</a>
-						  </li>
-						  <li class="list-group-item">
+						  <li className="list-group-item">
 						  	<a href="#!">UPLOADED MATERIAL</a>
 						  </li>
-						  <li class="list-group-item">
+						  <li className="list-group-item">
 						  	<a href="#!">UPLOADED MATERIAL</a>
 						  </li>
-						  <li class="list-group-item">
+						  <li className="list-group-item">
 						  	<a href="#!">UPLOADED MATERIAL</a>
 						  </li>
-						  <li class="list-group-item">
+						  <li className="list-group-item">
 						  	<a href="#!">FLAGGED COMMENT</a>
 						  </li>
-						  <li class="list-group-item">
+						  <li className="list-group-item">
 						  	<a href="#!">UPLOADED MATERIAL</a>
 						  </li>
 						</ul>
@@ -67,7 +97,8 @@ class Admin extends Component {
 					{/* Content box - Routes to either /blog/create, shows file or comment details */}
 					<div className="col-md-10">
 						<div className="card" style={{height: "100%"}}>
-
+							{this.state.id}
+							{displayContent}
 						</div>
 					</div>
 				</div>
