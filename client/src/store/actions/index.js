@@ -19,3 +19,4 @@ export {
 	submitComment,
 	deleteComment } from "./blogActions";
 export { handleSearch } from "./searchActions";
+export { initializeComment } from "./adminActions";
