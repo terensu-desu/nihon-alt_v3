@@ -129,6 +129,34 @@ router.post(
 	}
 );
 
+// @router  GET api/comment/:id/:comment_id
+// @desc    Get a comment for admin review page
+// @access  Private
+router.get("/comment/:id/:comment_id", (req, res) => {
+	Post.findById(req.params.id)
+		.then(foundPost => {
+			if (
+				foundPost.comments.filter(
+					comment => comment._id.toString() === req.params.comment_id
+				).length === 0
+			) {
+				return res
+					.status(400)
+					.json({ commentnotfound: "Comment was not found." });
+			}
+			const commentIndex = foundPost.comments
+				.map(comment => comment._id.toString())
+				.indexOf(req.params.comment_id);
+			res.json({foundPost.comments[commentIndex]});
+		})
+		.catch(err => {
+			return res.status(400).json({ postnotfound: "Requested comment not found." });
+		});
+});
+
+// @router  POST api/comment/:id
+// @desc    Post a new comment to a blog entry
+// @access  Private
 router.post(
 	"/comment/:id",
 	passport.authenticate("jwt", { session: false }),
@@ -157,6 +185,9 @@ router.post(
 	}
 );
 
+// @router  POST api/comment/:id/:comment_id
+// @desc    Delete a comment
+// @access  Private
 router.delete(
 	"/comment/:id/:comment_id",
 	passport.authenticate("jwt", { session: false }),
