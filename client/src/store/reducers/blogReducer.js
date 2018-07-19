@@ -20,11 +20,17 @@ const reducer = (state = initialState, action) => {
 				...state,
 				targetArticle: action.payload
 			};
-		case types.UPDATE_ARTICLE:
+		case types.UNLOAD_BLOG:
 			return {
 				...state,
-				targetArticle: action.payload
-			}
+				blogItems: [],
+				pageMax: 0
+			};
+		case types.UNLOAD_ARTICLE:
+			return {
+				...state,
+				targetArticle: {}
+			};
 		default:
 			return state;
 	}

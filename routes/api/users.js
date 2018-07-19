@@ -34,9 +34,6 @@ router.post("/register", (req, res) => {
 				});
 				// Use UserSchema to create newUser const
 				let adminStatus = false;
-				if(req.body.email === "tmangram@gmail.com") {
-					adminStatus = true;
-				}
 				const newUser = new User({
 					name: req.body.name,
 					email: req.body.email,

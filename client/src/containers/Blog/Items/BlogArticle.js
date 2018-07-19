@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import Moment from "react-moment";
 import { 
 	retrieveArticle,
+	unloadArticle,
 	addArticleLike,
 	removeArticleLike } from "../../../store/actions/";
 import Comment from "./Comment";
@@ -13,6 +14,9 @@ import Likes from "../../../components/UI/Likes";
 class BlogArticle extends Component {
 	componentDidMount() {
 		this.props.onRetrieveArticle(this.props.match.params.id)
+	}
+	componentWillUnmount() {
+		this.props.onUnloadArticle();
 	}
 	onLikeClick = itemId => {
 		this.props.onAddLike(itemId);
@@ -96,6 +100,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onRetrieveArticle: id => dispatch(retrieveArticle(id)),
+	onUnloadArticle: () => dispatch(unloadArticle()),
 	onAddLike: id => dispatch(addArticleLike(id)),
 	onRemoveLike: id => dispatch(removeArticleLike(id))
 });

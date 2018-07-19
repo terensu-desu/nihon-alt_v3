@@ -70,15 +70,8 @@ class Card extends Component {
 
 Card.propTypes = {
 	authStatus: PropTypes.bool.isRequired,
-	title: PropTypes.string.isRequired,
-	instructions: PropTypes.string.isRequired,
-	filePath: PropTypes.string.isRequired,
-	likes: PropTypes.array.isRequired,
-	grade: PropTypes.string.isRequired,
-	unit: PropTypes.string.isRequired,
-	part: PropTypes.string.isRequired,
-	id: PropTypes.string.isRequired,
-	username: PropTypes.string.isRequired,
+	authUser: PropTypes.object.isRequired,
+	item: PropTypes.object.isRequired,
 	onAddLike: PropTypes.func.isRequired,
 	onRemoveLike: PropTypes.func.isRequired
 }

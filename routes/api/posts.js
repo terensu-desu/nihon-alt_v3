@@ -147,7 +147,7 @@ router.get("/comment/:id/:comment_id", (req, res) => {
 			const commentIndex = foundPost.comments
 				.map(comment => comment._id.toString())
 				.indexOf(req.params.comment_id);
-			res.json({foundPost.comments[commentIndex]});
+			res.json({foundpost: foundPost.comments[commentIndex]});
 		})
 		.catch(err => {
 			return res.status(400).json({ postnotfound: "Requested comment not found." });

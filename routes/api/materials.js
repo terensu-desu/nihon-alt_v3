@@ -16,7 +16,7 @@ const acceptedFilesTypes = [
 	'application/pdf',
 	'application/vnd.oasis.opendocument.text',
 	"application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-]
+];
 
 const checkFileType = fileType => {
 	let safe = false;

@@ -30,16 +30,8 @@ class SearchResults extends Component {
 			displayResults = this.props.results.map(item => (
 				<Card 
 					key={item._id}
-					title={item.title}
-					instructions={item.instructions}
-					filePath={item.filePath}
-					imagePage={item.imagePage}
-					likes={item.likes}
-					id={item._id}
-					username={item.username}
-					grade={item.grade}
-					unit={item.unit}
-					part={item.part}
+					item={item}
+					authUser={this.props.authUser}
 					authStatus={this.props.authStatus}
 				/>
 			));
@@ -73,12 +65,14 @@ class SearchResults extends Component {
 SearchResults.propTypes = {
 	query: PropTypes.string,
 	loading: PropTypes.bool.isRequired,
+	authUser: PropTypes.object.isRequired,
 	authStatus: PropTypes.bool.isRequired,
 	results: PropTypes.array.isRequired
 }
 
 const mapStateToProps = state => ({
 	loading: state.loading.loading,
+	authUser: state.auth.user,
 	authStatus: state.auth.isAuthenticated,
 	query: state.search.query,
 	results: state.search.results

@@ -42,12 +42,18 @@ export const getMaterials = ({grade, unit, part}) => dispatch => {
 		})
 		.catch(err => {
 			dispatch(endLoading());
-			dispatch({ type: types.GET_MATERIALS_FAIL });
+			dispatch({ type: types.UNLOAD_MATERIALS });
 			dispatch({
 				type: types.GET_ERRORS,
 				payload: err.response.data
 			});
 		});
+};
+
+export const unloadMaterials = () => dispatch => {
+	dispatch({
+		type: types.UNLOAD_MATERIALS
+	});
 };
 
 /* ADD LIKES */
@@ -60,7 +66,7 @@ export const addLike = itemId => dispatch => {
 			});
 		})
 		.catch(err => console.log(err));
-}
+};
 
 /* REMOVE LIKES */
 export const removeLike = itemId => dispatch => {
@@ -72,4 +78,4 @@ export const removeLike = itemId => dispatch => {
 			});
 		})
 		.catch(err => console.log(err));
-}
+};

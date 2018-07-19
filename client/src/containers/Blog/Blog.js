@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { initializeBlog } from "../../store/actions/";
+import { initializeBlog, unloadBlog } from "../../store/actions/";
 import BlogListItem from "./Items/BlogListItem";
 
 class Blog extends Component {
 	state = { page: 0 };
 	componentDidMount() {
 		this.props.onInitializeBlog();
+	}
+	componentWillUnmount() {
+		this.props.onUnloadBlog();
 	}
 	handleNextClick = () => {
 		if(this.state.page !== this.props.blog.pageMax - 1) {
@@ -79,7 +82,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onInitializeBlog: () => dispatch(initializeBlog())
+	onInitializeBlog: () => dispatch(initializeBlog()),
+	onUnloadBlog: () => dispatch(unloadBlog())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blog);

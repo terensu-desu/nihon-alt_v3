@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
 				materials: action.payload.materials,
 				unitParts: action.payload.unitParts
 			};
-		case types.GET_MATERIALS_FAIL:
+		case types.UNLOAD_MATERIALS:
 			return { materials: [], unitParts: [] };
 		case types.UPDATE_MATERIAL:
 			const updateIndex = state.materials.map(item => item._id).indexOf(action.payload._id);

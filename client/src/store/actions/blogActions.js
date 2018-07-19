@@ -18,6 +18,18 @@ export const initializeBlog = () => dispatch => {
 		});
 };
 
+export const unloadBlog = () => dispatch => {
+	dispatch({
+		type: types.UNLOAD_BLOG
+	});
+};
+
+export const unloadArticle = () => dispatch => {
+	dispatch({
+		type: types.UNLOAD_ARTICLE
+	});
+};
+
 export const retrieveArticle = id => dispatch => {
 	axios.get(`/api/posts/${id}`)
 		.then(res => {
@@ -36,31 +48,31 @@ export const addArticleLike = itemId => dispatch => {
 	axios.post(`/api/posts/like/${itemId}`)
 		.then(res => {
 			dispatch({
-				type: types.UPDATE_ARTICLE,
+				type: types.RETRIEVE_ARTICLE,
 				payload: res.data
 			});
 		})
 		.catch(err => console.log(err));
-}
+};
 
 /* REMOVE LIKES */
 export const removeArticleLike = itemId => dispatch => {
 	axios.post(`/api/posts/unlike/${itemId}`)
 		.then(res => {
 			dispatch({
-				type: types.UPDATE_ARTICLE,
+				type: types.RETRIEVE_ARTICLE,
 				payload: res.data
 			});
 		})
 		.catch(err => console.log(err));
-}
+};
 
 /* ADD COMMENT */
 export const submitComment = (articleId, comment) => dispatch => {
 	axios.post(`/api/posts/comment/${articleId}`, comment)
 		.then(res => {
 			dispatch({
-				type: types.UPDATE_ARTICLE,
+				type: types.RETRIEVE_ARTICLE,
 				payload: res.data
 			});
 		})
@@ -70,14 +82,14 @@ export const submitComment = (articleId, comment) => dispatch => {
 				payload: err.response.data
 			});
 		});
-}
+};
 
 /* DELETE COMMENT */
 export const deleteComment = (articleId, commentId) => dispatch => {
 	axios.delete(`/api/posts/comment/${articleId}/${commentId}`)
 		.then(res => {
 			dispatch({
-				type: types.UPDATE_ARTICLE,
+				type: types.RETRIEVE_ARTICLE,
 				payload: res.data
 			});
 		})
@@ -87,5 +99,5 @@ export const deleteComment = (articleId, commentId) => dispatch => {
 				payload: err.response.data
 			});
 		});
-}
+};
 

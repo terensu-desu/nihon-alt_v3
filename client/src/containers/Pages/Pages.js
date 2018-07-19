@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, NavLink }  from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getMaterials } from "../../store/actions/";
+import { getMaterials, unloadMaterials } from "../../store/actions/";
 import Spinner from "../../components/UI/Spinner";
 import Card from "../../components/UI/Card";
 
@@ -14,6 +14,9 @@ class Pages extends Component {
 			part: this.props.match.params.part
 		};
 		this.props.onGetMaterials(params);
+	}
+	componentWillUnmount() {
+		this.props.onUnloadMaterials();
 	}
 	componentWillReceiveProps(nextProps) {
 		const oldParams = {
@@ -144,6 +147,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 	onGetMaterials: params => dispatch(getMaterials(params)),
+	onUnloadMaterials: () => dispatch(unloadMaterials())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Pages);

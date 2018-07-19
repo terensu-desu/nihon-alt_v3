@@ -15,8 +15,8 @@ export const handleSearch = (query, history) => dispatch => {
 				type: types.HANDLE_SEARCH,
 				payload: payload
 			});
-			history.push("/searchresults");
 		})
+		.then(() => history.push("/searchresults"))
 		.catch(err => {
 			dispatch(endLoading());
 			console.log("error in handle search")
