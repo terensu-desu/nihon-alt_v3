@@ -61,7 +61,7 @@ class Navbar extends Component {
 		}
 		return (
 			<nav className="navbar navbar-expand-sm navbar-dark bg-secondary">
-				<div className="container-fluid">
+				<div className="container">
 					<NavLink className="navbar-brand mb-0" to="/">
 						Nihon ALT
 					</NavLink>
