@@ -32,7 +32,7 @@ class BlogArticle extends Component {
 	};
 	render() {
 		const { article, authStatus, authUser } = this.props;
-		let comments = <li className="list-group-item">Try comment</li>;
+		let comments = <h5>Be the first to add a comment!</h5>;
 		if(article.comments && article.comments.length > 0) {
 			comments = article.comments.map(comment => (
 				<Comment
