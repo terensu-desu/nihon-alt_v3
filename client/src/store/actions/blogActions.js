@@ -79,7 +79,7 @@ export const submitComment = (articleId, comment) => dispatch => {
 		.catch(err => {
 			dispatch({
 				type: types.GET_ERRORS,
-				payload: err.response.data
+				payload: {comment: "Please log in to comment."}
 			});
 		});
 };
