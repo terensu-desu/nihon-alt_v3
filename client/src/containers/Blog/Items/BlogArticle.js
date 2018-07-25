@@ -13,7 +13,7 @@ import Likes from "../../../components/UI/Likes";
 
 class BlogArticle extends Component {
 	componentDidMount() {
-		this.props.onRetrieveArticle(this.props.match.params.id)
+		this.props.onRetrieveArticle(this.props.match.params.id);
 	}
 	componentWillUnmount() {
 		this.props.onUnloadArticle();
