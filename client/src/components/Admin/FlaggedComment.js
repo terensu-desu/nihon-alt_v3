@@ -4,7 +4,7 @@ import { initializeComment } from "../../store/actions";
 
 class FlaggedComment extends Component {
 	componentDidMount() {
-		this.props.onInitializeComment(this.props.data.article, this.props.data.comment);
+		this.props.onInitializeComment(this.props.data.articleId, this.props.data.commentId);
 	}
 	render() {
 		let displayContent = (
