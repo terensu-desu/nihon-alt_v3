@@ -7,6 +7,7 @@ const path = require("path");
 const materials = require("./routes/api/materials");
 const posts = require("./routes/api/posts");
 const users = require("./routes/api/users");
+const admin = require("./routes/api/admin");
 
 const app = express();
 
@@ -30,6 +31,7 @@ require("./config/passport")(passport);
 app.use("/api/materials", materials);
 app.use("/api/posts", posts);
 app.use("/api/users", users);
+app.use("/api/admin", admin);
 
 // SERVER STATIC ASSETS IF IN PRODUCTION
 if (process.env.NODE_ENV === "production") {
