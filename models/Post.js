@@ -34,24 +34,8 @@ const PostSchema = new Schema({
 	],
 	comments: [
 		{
-			user: {
-				type: Schema.Types.ObjectId,
-				ref: "users"
-			},
-			text: {
-				type: String,
-				required: true
-			},
-			name: {
-				type: String
-			},
-			avatar: {
-				type: String
-			},
-			date: {
-				type: Date,
-				default: Date.now
-			}
+			type: Schema.Types.ObjectId,
+			ref: "comment"
 		}
 	]
 });
