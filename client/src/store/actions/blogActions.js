@@ -101,3 +101,19 @@ export const deleteComment = (articleId, commentId) => dispatch => {
 		});
 };
 
+/* ADD FLAG TO COMMENT */
+export const flagComment = (articleId, commentId) => dispatch => {
+	axios.get(`/api/posts/comment/${articleId}/${commentId}`)
+		.then(res => {
+			dispatch({
+				type: types.RETRIEVE_ARTICLE,
+				payload: res.data
+			});
+		})
+		.catch(err => {
+			dispatch({
+				type: types.GET_ERRORS,
+				payload: err.response.data
+			});
+		});
+};
