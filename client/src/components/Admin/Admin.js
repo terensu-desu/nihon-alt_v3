@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { initializeList } from "../../store/actions";
 import FlaggedComment from "./FlaggedComment";
 
 class Admin extends Component {
 	state = {
 		content: null,
 		type: null,
-		data: null
+		data: null,
+		list: []
 	};
 	componentDidMount() {
-		this.setState({
-			content: null,
-			type: null,
-			data: null
-		});
+		// call handleInitializeList
 	}
-	handleClick = (type, data) => {
+	handleInitializeList = () => {
+		// use action to get flagged comments and unverified materials
+		// put into redux store
+		// this is accessable by componentDidMount and WillReceiveProps
+	};
+	handleListClick = (type, data) => {
 		this.setState({
 			content: true,
 			type: type,
@@ -24,15 +27,42 @@ class Admin extends Component {
 	};
 	render() {
 		let displayContent = null;
+		let alertList = null;
 		if(this.state.content) {
 			if(this.state.type === "comment") {
 				displayContent = <FlaggedComment data={this.state.data} />;
 			} else if(this.state.type === "material") {
 				// displayContent = <ReviewMaterial data={this.state.data} />;
 			} else if(this.state.type === "blog") {
-				// displayContent = <CreateBlogEntry />;
+				// displayContent = <CreateBlogEntry submitForm={this.handleBlogSubmit} />;
 			}
 		}
+		/*if(this.props.admin.list) {
+			alertList = this.props.admin.list(item => {
+				if(item.type === "comment") {
+					return (
+						<li className="list-group-item">
+					  	<a
+					  	href="#!"
+					  	onClick={() => this.handleListClick(item.type, {articleId: item.articleId, commentId: item.commentId})}>
+					  		FLAGGED COMMENT
+					  	</a>
+					  </li>
+					);
+				} else if(item.type === "material") {
+						return (
+							<li className="list-group-item">
+						  	<a
+						  	href="#!"
+						  	onClick={() => this.handleListClick(item.type, {materialId: item.materialId})}>
+						  		FLAGGED COMMENT
+						  	</a>
+						  </li>
+					);
+				}
+			})
+			.slice(0, 8);
+		}*/
 		return (
 			<div className="container">
 				<div className="row">
@@ -67,11 +97,12 @@ class Admin extends Component {
 					{/* List of Alerts */}
 					<div className="col-md-2">
 						<ul className="list-group text-center card">
+							{alertList}
 						  <li className="list-group-item">
 						  	<a 
 						  	href="#!"
-						  	onClick={() => this.handleClick("comment", {article: "5b386e93e765401d7ba233e3", comment: "5b3fbdb8d1ea6f0014aa9c45"})}>
-						  		FLAGGED COMMENT
+						  	onClick={() => this.handleListClick("comment", {articleId: "5b386e93e765401d7ba233e3", commentId: "5b3fbdb8d1ea6f0014aa9c45"})}>
+						  		FLAGGED COMMENT1
 						  	</a>
 						  </li>
 						  <li className="list-group-item">
@@ -111,4 +142,8 @@ const mapStateToProps = state => ({
 	user: state.auth.user
 });
 
-export default connect(mapStateToProps)(Admin);
+const mapDispatchToProps = dispatch => ({
+	handleInitializeList: () => dispatch(initializeList())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);
