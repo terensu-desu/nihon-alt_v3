@@ -3,6 +3,7 @@ const router = express.Router();
 const passport = require("passport");
 
 const Post = require("../../models/Post");
+const Comment = require("../../models/Comment");
 const User = require("../../models/User");
 
 // INPUT VALIDATION
@@ -32,6 +33,7 @@ router.get("/", (req, res) => {
 // @access Public
 router.get("/:id", (req, res) => {
 	Post.findById(req.params.id)
+		.populate("comments")
 		.then(foundPost => {
 			res.json(foundPost);
 		})
@@ -43,7 +45,7 @@ router.get("/:id", (req, res) => {
 // @router POST api/posts/
 // @desc   Create new post
 // @access Private
-router.get(
+router.post(
 	"/",
 	passport.authenticate("jwt", { session: false }),
 	(req, res) => {
@@ -88,7 +90,12 @@ router.post(
 						.json({ alreadyliked: "User aleady liked this item." });
 				}
 				foundPost.likes.unshift({ user: req.user.id });
-				foundPost.save().then(updatedPost => res.json(updatedPost));
+				foundPost.save().then(() => {
+					Post.findById(req.params.id)
+						.populate("comments")
+						.then(updatedPost => res.json(updatedPost))
+						.catch(err => console.log("Error finding post, [Add Comment Route]"));
+				});
 			})
 			.catch(err => {
 				return res
@@ -119,7 +126,12 @@ router.post(
 					.map(like => like.user.toString())
 					.indexOf(req.user.id);
 				foundPost.likes.splice(removeIndex, 1);
-				foundPost.save().then(updatedPost => res.json(updatedPost));
+				foundPost.save().then(() => {
+					Post.findById(req.params.id)
+						.populate("comments")
+						.then(updatedPost => res.json(updatedPost))
+						.catch(err => console.log("Error finding post, [Add Comment Route]"));
+				});
 			})
 			.catch(err => {
 				return res
@@ -129,32 +141,7 @@ router.post(
 	}
 );
 
-// @router  GET api/comment/:id/:comment_id
-// @desc    Get a comment for admin review page
-// @access  Private
-router.get("/comment/:id/:comment_id", (req, res) => {
-	Post.findById(req.params.id)
-		.then(foundPost => {
-			if (
-				foundPost.comments.filter(
-					comment => comment._id.toString() === req.params.comment_id
-				).length === 0
-			) {
-				return res
-					.status(400)
-					.json({ commentnotfound: "Comment was not found." });
-			}
-			const commentIndex = foundPost.comments
-				.map(comment => comment._id.toString())
-				.indexOf(req.params.comment_id);
-			res.json(foundPost.comments[commentIndex]);
-		})
-		.catch(err => {
-			return res.status(400).json({ postnotfound: "Requested comment not found." });
-		});
-});
-
-// @router  POST api/comment/:id
+// @router  POST api/posts/comment/:id
 // @desc    Post a new comment to a blog entry
 // @access  Private
 router.post(
@@ -168,14 +155,20 @@ router.post(
 		}
 		Post.findById(req.params.id)
 			.then(foundPost => {
-				const newComment = {
+				const newComment = new Comment({
 					text: req.body.content,
 					name: req.body.name,
 					avatar: req.body.avatar,
 					user: req.user.id
-				};
-				foundPost.comments.unshift(newComment);
-				foundPost.save().then(updatedPost => res.json(updatedPost));
+				});
+				newComment.save();
+				foundPost.comments.unshift(newComment._id);
+				foundPost.save().then(() => {
+					Post.findById(req.params.id)
+						.populate("comments")
+						.then(updatedPost => res.json(updatedPost))
+						.catch(err => console.log("Error finding post, [Add Comment Route]"));
+				});
 			})
 			.catch(err => {
 				return res
@@ -185,7 +178,7 @@ router.post(
 	}
 );
 
-// @router  POST api/comment/:id/:comment_id
+// @router  POST api/posts/comment/:id/:comment_id
 // @desc    Delete a comment
 // @access  Private
 router.delete(
@@ -207,7 +200,38 @@ router.delete(
 					.map(comment => comment._id.toString())
 					.indexOf(req.params.comment_id);
 				foundPost.comments.splice(removeIndex, 1);
-				foundPost.save().then(updatedPost => res.json(updatedPost));
+				foundPost.save().then(() => {
+					Comment.findByIdAndRemove(req.params.comment_id)
+						.then(() => {
+							Post.findById(req.params.id)
+								.populate("comments")
+								.then(updatedPost => res.json(updatedPost))
+								.catch(err => console.log("Error finding post, [Delete Comment Route]"))
+						})
+				});
+			})
+			.catch(err => {
+				return res.status(400).json({ postnotfound: "Requested post not found." });
+			});
+});
+
+// @router  GET api/posts/comment/:id/:comment_id
+// @desc    Flag a comment
+// @access  Private
+router.get(
+	"/comment/:id/:comment_id",
+	passport.authenticate("jwt", { session: false }),
+	(req, res) => {
+		Comment.findById(req.params.comment_id)
+			.then(foundComment => {
+				foundComment.flagged = true;
+				foundComment.save()
+					.then(() => {
+						Post.findById(req.params.id)
+							.populate("comments")
+							.then(foundPost => res.json(foundPost));
+					})
+					.catch(err => console.log("Error in flagging comment"))
 			})
 			.catch(err => {
 				return res.status(400).json({ postnotfound: "Requested post not found." });
