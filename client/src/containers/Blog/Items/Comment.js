@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Moment from "react-moment";
-import { deleteComment } from "../../../store/actions/";
+import { flagComment, deleteComment } from "../../../store/actions/";
 
 class Comment extends Component {
 	handleDeleteClick = event => {
 		event.preventDefault();
-		this.props.onDeleteClick(this.props.articleId, this.props.comment._id)
+		this.props.onDeleteClick(this.props.articleId, this.props.comment._id);
 	};
-
+	handleFlagClick = event => {
+		event.preventDefault();
+		console.log("eroeri")
+		this.props.onFlagClick(this.props.articleId, this.props.comment._id);
+	}
 	render() {
 		const {
 			avatar,
@@ -19,6 +23,12 @@ class Comment extends Component {
 		const authUserId = this.props.authUser.id;
 		return (
 			<li className="list-group-item bg-light mb-3">
+				<a href="#!" onClick={this.handleFlagClick} className="float-right text-danger">
+					<i 
+						className="fa fa-flag" 
+						aria-hidden="true">
+					</i>
+				</a>
 				<div className="row">
 					<div className="col-sm-4 col-md-2">
 			      <img
@@ -53,7 +63,8 @@ class Comment extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	onDeleteClick: (articleId, commentId) => dispatch(deleteComment(articleId, commentId))
+	onDeleteClick: (articleId, commentId) => dispatch(deleteComment(articleId, commentId)),
+	onFlagClick: (articleId, commentId) => dispatch(flagComment(articleId, commentId))
 });
 
 export default connect(null, mapDispatchToProps)(Comment);
