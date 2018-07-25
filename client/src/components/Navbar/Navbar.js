@@ -6,8 +6,8 @@ import SearchBar from "../../containers/SearchBar/SearchBar";
 import JhsYear1 from "./Items/JhsYear1";
 import JhsYear2 from "./Items/JhsYear2";
 import JhsYear3 from "./Items/JhsYear3";
-import SpecialNeeds from "./Items/SpecialNeeds";
-import HighSchool from "./Items/HighSchool";
+//import SpecialNeeds from "./Items/SpecialNeeds";
+//import HighSchool from "./Items/HighSchool";
 
 class Navbar extends Component {
 	handleLogoutClick = event => {
@@ -75,12 +75,12 @@ class Navbar extends Component {
 					</button>
 
 					<div className="collapse navbar-collapse" id="mobile-nav">
-						<ul className="navbar-nav ml-auto">
+						<ul className="navbar-nav ml-3">
 							<JhsYear1 />
 							<JhsYear2 />
 							<JhsYear3 />
-							<SpecialNeeds />
-							<HighSchool />
+							{/*<SpecialNeeds />
+							<HighSchool />*/}
 						</ul>
 						<ul className="navbar-nav ml-auto">
 						  <SearchBar />
