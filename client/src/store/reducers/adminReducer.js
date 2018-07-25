@@ -1,12 +1,18 @@
 import * as types from "../actions/actionTypes";
 
 const initialState = {
+	list: [],
 	comment: {},
 	material: {}
 };
 
 const reducer = (state = initialState, action) => {
 	switch(action.type) {
+		case types.INITIALIZE_LIST:
+			return {
+				...state,
+				list: action.payload
+			};
 		case types.INITIALIZE_COMMENT:
 			return {
 				...state,

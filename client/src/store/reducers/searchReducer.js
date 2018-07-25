@@ -12,7 +12,7 @@ const reducer = (state = initialState, action) => {
 				...state,
 				query: action.payload.query,
 				results: action.payload.results
-			}
+			};
 		default:
 			return state;
 	}
