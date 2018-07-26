@@ -159,7 +159,8 @@ router.post(
 					text: req.body.content,
 					name: req.body.name,
 					avatar: req.body.avatar,
-					user: req.user.id
+					user: req.user.id,
+					article: foundPost._id
 				});
 				newComment.save();
 				foundPost.comments.unshift(newComment._id);

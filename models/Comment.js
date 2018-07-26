@@ -23,6 +23,10 @@ const CommentSchema = new Schema({
 	flagged: {
 		type: Boolean,
 		default: false
+	},
+	article: {
+		type: Schema.Types.ObjectId,
+		ref: "post"
 	}
 });
 

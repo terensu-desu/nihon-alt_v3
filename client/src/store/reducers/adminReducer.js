@@ -1,7 +1,7 @@
 import * as types from "../actions/actionTypes";
 
 const initialState = {
-	list: [],
+	list: null,
 	comment: {},
 	material: {}
 };

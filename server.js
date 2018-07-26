@@ -28,10 +28,10 @@ app.use(passport.initialize());
 require("./config/passport")(passport);
 
 // USE ROUTES
+app.use("/api/admin", admin);
 app.use("/api/materials", materials);
 app.use("/api/posts", posts);
 app.use("/api/users", users);
-app.use("/api/admin", admin);
 
 // SERVER STATIC ASSETS IF IN PRODUCTION
 if (process.env.NODE_ENV === "production") {

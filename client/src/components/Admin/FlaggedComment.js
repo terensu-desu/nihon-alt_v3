@@ -4,19 +4,20 @@ import { initializeComment } from "../../store/actions";
 
 class FlaggedComment extends Component {
 	componentDidMount() {
-		this.props.onInitializeComment(this.props.data.articleId, this.props.data.commentId);
+		this.props.onInitializeComment(this.props.data.commentId);
 	}
+	// add componentDidUnmount to remove data from store
 	render() {
 		let displayContent = (
 			<div className="card-content">
 				<h3>Nothing to display here</h3>
 			</div>
 		);
-		if(this.props.admin.comment) {
+		if(this.props.comment) {
 			displayContent = (
 				<div className="card-content">
-					<h3>{this.props.admin.comment.namne}</h3>
-					<p>{this.props.admin.comment.text}</p>
+					<h3>{this.props.comment.name}</h3>
+					<p>{this.props.comment.text}</p>
 				</div>
 			);
 		}
@@ -29,11 +30,11 @@ class FlaggedComment extends Component {
 }
 
 const mapStateToProps = state => ({
-	admin: state.admin
+	comment: state.admin.comment
 });
 
 const mapDispatchToProps = dispatch => ({
-	onInitializeComment: (articleId, commentId) => dispatch(initializeComment(articleId, commentId))
+	onInitializeComment: commentId => dispatch(initializeComment(commentId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FlaggedComment);

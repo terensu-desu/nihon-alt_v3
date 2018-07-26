@@ -5,22 +5,24 @@ import { initializeMaterial } from "../../store/actions";
 
 class ReviewMaterial extends Component {
 	componentDidMount() {
-		this.props.onInitializeComment(this.props.data.materialId);
+		this.props.onInitializeMaterial(this.props.data.materialId);
 	}
+	// add componentDidUnmount to remove data from store
 	render() {
 		let displayContent = (
 			<div className="card-content">
 				<h3>Nothing to display here</h3>
 			</div>
 		);
-		if(this.props.admin.comment) {
+		if(this.props.material) {
 			displayContent = (
 				<div className="card-content">
-					<h3>{this.props.admin.comment.namne}</h3>
-					<p>{this.props.admin.comment.text}</p>
+					<h3>hello</h3>
+					<p>hello2</p>
 				</div>
 			);
 		}
+		console.log(this.props.material)
 		return (
 			<div>
 				{displayContent}
@@ -30,11 +32,11 @@ class ReviewMaterial extends Component {
 }
 
 const mapStateToProps = state => ({
-	admin: state.admin
+	material: state.admin.material
 });
 
 const mapDispatchToProps = dispatch => ({
-	onInitializeComment: materialId => dispatch(initializeMaterial(materialId))
+	onInitializeMaterial: materialId => dispatch(initializeMaterial(materialId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewMaterial);

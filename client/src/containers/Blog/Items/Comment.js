@@ -10,7 +10,6 @@ class Comment extends Component {
 	};
 	handleFlagClick = event => {
 		event.preventDefault();
-		console.log("eroeri")
 		this.props.onFlagClick(this.props.articleId, this.props.comment._id);
 	}
 	render() {

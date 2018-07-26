@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { initializeList } from "../../store/actions";
 import FlaggedComment from "./FlaggedComment";
+import ReviewMaterial from "./ReviewMaterial";
 
 class Admin extends Component {
 	state = {
@@ -11,13 +12,8 @@ class Admin extends Component {
 		list: []
 	};
 	componentDidMount() {
-		// call handleInitializeList
+		this.props.onInitializeList();
 	}
-	handleInitializeList = () => {
-		// use action to get flagged comments and unverified materials
-		// put into redux store
-		// this is accessable by componentDidMount and WillReceiveProps
-	};
 	handleListClick = (type, data) => {
 		this.setState({
 			content: true,
@@ -27,42 +23,41 @@ class Admin extends Component {
 	};
 	render() {
 		let displayContent = null;
-		let alertList = null;
+		let commentList = null;
+		let materialList = null;
 		if(this.state.content) {
 			if(this.state.type === "comment") {
 				displayContent = <FlaggedComment data={this.state.data} />;
 			} else if(this.state.type === "material") {
-				// displayContent = <ReviewMaterial data={this.state.data} />;
+				displayContent = <ReviewMaterial data={this.state.data} />;
 			} else if(this.state.type === "blog") {
 				// displayContent = <CreateBlogEntry submitForm={this.handleBlogSubmit} />;
 			}
 		}
-		/*if(this.props.admin.list) {
-			alertList = this.props.admin.list(item => {
-				if(item.type === "comment") {
-					return (
-						<li className="list-group-item">
-					  	<a
-					  	href="#!"
-					  	onClick={() => this.handleListClick(item.type, {articleId: item.articleId, commentId: item.commentId})}>
-					  		FLAGGED COMMENT
-					  	</a>
-					  </li>
-					);
-				} else if(item.type === "material") {
-						return (
-							<li className="list-group-item">
-						  	<a
-						  	href="#!"
-						  	onClick={() => this.handleListClick(item.type, {materialId: item.materialId})}>
-						  		FLAGGED COMMENT
-						  	</a>
-						  </li>
-					);
-				}
-			})
-			.slice(0, 8);
-		}*/
+		if(this.props.list) {
+			if(this.props.list.comments) {
+				commentList = this.props.list.comments.map(item => (
+					<li className="list-group-item" key={item._id}>
+				  	<a
+				  	href="#!"
+				  	onClick={() => this.handleListClick("comment", {commentId: item._id})}>
+				  		Flagged User Comment
+				  	</a>
+				  </li>
+				)).slice(0,4);
+			}
+			if(this.props.list.materials) {
+				materialList = this.props.list.materials.map(item => (
+					<li className="list-group-item" key={item._id}>
+				  	<a
+				  	href="#!"
+				  	onClick={() => this.handleListClick("material", {materialId: item._id})}>
+				  		Unverified Community File
+				  	</a>
+				  </li>
+				)).slice(0,4);
+			}
+		}
 		return (
 			<div className="container">
 				<div className="row">
@@ -97,37 +92,13 @@ class Admin extends Component {
 					{/* List of Alerts */}
 					<div className="col-md-2">
 						<ul className="list-group text-center card">
-							{alertList}
-						  <li className="list-group-item">
-						  	<a 
-						  	href="#!"
-						  	onClick={() => this.handleListClick("comment", {articleId: "5b386e93e765401d7ba233e3", commentId: "5b3fbdb8d1ea6f0014aa9c45"})}>
-						  		FLAGGED COMMENT1
-						  	</a>
-						  </li>
-						  <li className="list-group-item">
-						  	<a href="#!">FLAGGED COMMENT</a>
-						  </li>
-						  <li className="list-group-item">
-						  	<a href="#!">UPLOADED MATERIAL</a>
-						  </li>
-						  <li className="list-group-item">
-						  	<a href="#!">UPLOADED MATERIAL</a>
-						  </li>
-						  <li className="list-group-item">
-						  	<a href="#!">UPLOADED MATERIAL</a>
-						  </li>
-						  <li className="list-group-item">
-						  	<a href="#!">FLAGGED COMMENT</a>
-						  </li>
-						  <li className="list-group-item">
-						  	<a href="#!">UPLOADED MATERIAL</a>
-						  </li>
+							{commentList}
+							{materialList}
 						</ul>
 					</div>
 					{/* Content box - Routes to either /blog/create, shows file or comment details */}
 					<div className="col-md-10">
-						<div className="card" style={{height: "100%"}}>
+						<div className="card" style={{height: "45vh"}}>
 							{this.state.id}
 							{displayContent}
 						</div>
@@ -139,11 +110,12 @@ class Admin extends Component {
 };
 
 const mapStateToProps = state => ({
-	user: state.auth.user
+	user: state.auth.user,
+	list: state.admin.list
 });
 
 const mapDispatchToProps = dispatch => ({
-	handleInitializeList: () => dispatch(initializeList())
+	onInitializeList: () => dispatch(initializeList())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);

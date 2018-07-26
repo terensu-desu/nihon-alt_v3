@@ -21,6 +21,10 @@ export {
 	removeArticleLike,
 	submitComment,
 	deleteComment,
-	flagComment } from "./blogActions";
+	flagComment
+} from "./blogActions";
 export { handleSearch } from "./searchActions";
-export { initializeList, initializeComment } from "./adminActions";
+export { initializeList,
+	initializeComment,
+	initializeMaterial
+} from "./adminActions";
