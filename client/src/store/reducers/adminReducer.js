@@ -2,8 +2,8 @@ import * as types from "../actions/actionTypes";
 
 const initialState = {
 	list: null,
-	comment: {},
-	material: {}
+	comment: null,
+	material: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,6 +18,26 @@ const reducer = (state = initialState, action) => {
 				...state,
 				comment: action.payload
 			};
+		case types.INITIALIZE_MATERIAL:
+			return {
+				...state,
+				material: action.payload
+			};
+		case types.UNLOAD_LIST: 
+			return {
+				...state,
+				list: null
+			}
+		case types.UNLOAD_COMMENT: 
+			return {
+				...state,
+				comment: null
+			}
+		case types.UNLOAD_MATERIAL: 
+			return {
+				...state,
+				material: null
+			}
 		default:
 			return state;
 	}
