@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { initializeList } from "../../store/actions";
+import { initializeList, unloadList } from "../../store/actions";
+import Spinner from "../../components/UI/Spinner";
 import FlaggedComment from "./FlaggedComment";
 import ReviewMaterial from "./ReviewMaterial";
 
@@ -14,6 +15,9 @@ class Admin extends Component {
 	componentDidMount() {
 		this.props.onInitializeList();
 	}
+	componentWillUnmount() {
+		this.props.onUnloadList();
+	}
 	handleListClick = (type, data) => {
 		this.setState({
 			content: true,
@@ -23,6 +27,7 @@ class Admin extends Component {
 	};
 	render() {
 		let displayContent = null;
+		let alertSpace = <Spinner />;
 		let commentList = null;
 		let materialList = null;
 		if(this.state.content) {
@@ -57,6 +62,7 @@ class Admin extends Component {
 				  </li>
 				)).slice(0,4);
 			}
+			alertSpace = null;
 		}
 		return (
 			<div className="container">
@@ -92,14 +98,14 @@ class Admin extends Component {
 					{/* List of Alerts */}
 					<div className="col-md-2">
 						<ul className="list-group text-center card">
+							{alertSpace}
 							{commentList}
 							{materialList}
 						</ul>
 					</div>
 					{/* Content box - Routes to either /blog/create, shows file or comment details */}
 					<div className="col-md-10">
-						<div className="card" style={{height: "45vh"}}>
-							{this.state.id}
+						<div className="card" style={{height: "55vh"}}>
 							{displayContent}
 						</div>
 					</div>
@@ -115,7 +121,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-	onInitializeList: () => dispatch(initializeList())
+	onInitializeList: () => dispatch(initializeList()),
+	onUnloadList: () => dispatch(unloadList())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);
