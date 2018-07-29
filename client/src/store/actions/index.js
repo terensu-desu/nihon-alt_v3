@@ -26,5 +26,11 @@ export {
 export { handleSearch } from "./searchActions";
 export { initializeList,
 	initializeComment,
-	initializeMaterial
+	initializeMaterial,
+	unloadList,
+	unloadComment,
+	unloadMaterial,
+	allowComment,
+	verifyMaterial,
+	removeMaterial
 } from "./adminActions";
