@@ -39,7 +39,7 @@ const storage = multer.diskStorage({
   	const date = fullDate.getDate();
   	const milliseconds = fullDate.getMilliseconds();
   	let formatedDate = `${year}-${month}-${date}-${milliseconds}`;
-    next(null, `${formatedDate}-ZXC-${file.originalname}`)
+    next(null, `${formatedDate}-${file.originalname}`);
   }
 });
 
@@ -95,6 +95,17 @@ router.get("/:grade/:unit/:part", (req, res) => {
 		.catch(err =>
 			res.status(404).json({ notfound: "Unable to find by these parameters." })
 		);
+});
+
+// @router  GET api/materials/download/:material_id
+// @desc    Download material
+// @access  Public
+router.get("/download/:material_id", (req, res) => {
+	Material.findById(req.params.material_id)
+		.then(foundMaterial => {
+			res.sendFile(foundMaterial.filePath, {root: __dirname + "../../../"});
+		})
+		.catch(err => console.log("Error: cannot find material to download.", err));
 });
 
 // @router  GET api/materials/search/...
@@ -161,11 +172,10 @@ router.post(
 			return res.status(400).json(errors);
 		}
 		const fixedKeywords = req.body.keywords.split(",");
-		const fixedFilePath = req.file.path.replace("-ZXC-", `-${req.body.username.split(" ")[0]}-`);
 		const newMaterial = new Material({
 			title: req.body.title,
 			instructions: req.body.instructions,
-			filePath: fixedFilePath,
+			filePath: req.file.path,
 			user: req.user.id,
 			grade: req.body.grade,
 			unit: req.body.unit,
@@ -176,8 +186,7 @@ router.post(
 		});
 		console.log("[FROM BACK-END]", newMaterial);
 		// Want to simply return success, trigger a thank you, alert to gmail to review
-		res.json({ success: "File uploaded" });
-		//newMaterial.save().then(material => res.json({success: "File uploaded"}));
+		newMaterial.save().then(() => res.json({success: "File uploaded"}));
 	}
 );
 
