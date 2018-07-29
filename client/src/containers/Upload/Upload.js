@@ -134,7 +134,7 @@ class Upload extends Component {
 					</div>
 				</div>
 				<div className="toast" style={toastStyle}>
-					<span>Thanks your contribution!</span>
+					<span>Thanks for your contribution!</span>
 				</div>
 			</div>
 		);
