@@ -36,7 +36,7 @@ const storage = multer.diskStorage({
   	const date = fullDate.getDate();
   	const milliseconds = fullDate.getMilliseconds();
   	let formatedDate = `${year}-${month}-${date}-${milliseconds}`;
-    next(null, `${formatedDate}-ZXC-${file.originalname}`)
+    next(null, `${formatedDate}-${file.originalname}`)
   }
 });
 
