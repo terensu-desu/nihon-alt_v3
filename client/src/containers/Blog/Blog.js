@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { initializeBlog, unloadBlog } from "../../store/actions/";
 import BlogListItem from "./Items/BlogListItem";
+import Spinner from "../../components/UI/Spinner";
 
 class Blog extends Component {
 	state = { page: 0 };
@@ -42,7 +43,7 @@ class Blog extends Component {
 					<div className="col-md-12">
 						<h2 className="text-center">Otsukare News</h2>
 						<div className="list-group">
-						  {listItems}
+						  {listItems ? listItems : <Spinner />}
 						</div>
 					</div>
 					<div className="mx-auto">
