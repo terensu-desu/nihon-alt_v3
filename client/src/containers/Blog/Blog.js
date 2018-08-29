@@ -34,16 +34,19 @@ class Blog extends Component {
 	render() {
 		const chunkArray = [[0, 4], [4, 8], [8, 12], [12, 16]];
 		let sliceChunk = chunkArray[this.state.page];
-		const listItems = this.props.blog.blogItems.slice(sliceChunk[0], sliceChunk[1]).map(blog => 
-			<BlogListItem key={blog._id} blog={blog} />
-		);
+		let listItems = <Spinner />;
+		if(this.props.blog.blogItems.length > 0) {
+			listItems = this.props.blog.blogItems.slice(sliceChunk[0], sliceChunk[1]).map(blog => 
+				<BlogListItem key={blog._id} blog={blog} />
+			);
+		}
 		return (
 			<div className="container">
 				<div className="row">
 					<div className="col-md-12">
 						<h2 className="text-center">Otsukare News</h2>
 						<div className="list-group">
-						  {listItems ? listItems : <Spinner />}
+						  {listItems}
 						</div>
 					</div>
 					<div className="mx-auto">
