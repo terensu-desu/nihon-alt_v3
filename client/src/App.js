@@ -17,7 +17,7 @@ import SearchResults from "./components/SearchResults/SearchResults";
 import Admin from "./components/Admin/Admin";
 import Upload from "./containers/Upload/Upload";
 import Footer from "./components/Footer/Footer";
-import Aux from "./hoc/Aux";
+import Aux from "./hoc/AuxWrapperWrapper";
 import './App.css';
 
 class App extends Component {

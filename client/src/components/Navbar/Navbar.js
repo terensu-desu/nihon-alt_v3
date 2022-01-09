@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
 
-import Aux from "../../hoc/Aux";
+import Aux from "../../hoc/AuxWrapper";
 import SearchBar from "../../containers/SearchBar/SearchBar";
 import JhsYear1 from "./Items/JhsYear1";
 import JhsYear2 from "./Items/JhsYear2";

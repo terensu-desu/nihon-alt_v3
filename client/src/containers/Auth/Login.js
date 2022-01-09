@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Aux from "../../hoc/Aux";
+import Aux from "../../hoc/AuxWrapper";
 import Spinner from "../../components/UI/Spinner";
 import TextFieldGroup from "../../components/UI/TextFieldGroup";
 import { loginUser } from "../../store/actions/";
