@@ -8,6 +8,8 @@ const materials = require("./routes/api/materials");
 const posts = require("./routes/api/posts");
 const users = require("./routes/api/users");
 const admin = require("./routes/api/admin");
+const seedPosts = require("./routes/api/seedPosts");
+const seedMaterials = require("./routes/api/seedMaterials");
 
 const app = express();
 
@@ -19,8 +21,8 @@ app.use(bodyParser.json());
 const db = require("./config/keys").mongoURI;
 
 if (process.env.SEED) {
-	app.use("/seeds/blog");
-	app.use("/seeds/materials");
+	app.use("/seeds/blog", seedPosts);
+	app.use("/seeds/materials", seedMaterials);
 }
 
 mongoose
