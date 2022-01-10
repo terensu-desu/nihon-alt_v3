@@ -17,6 +17,12 @@ app.use(bodyParser.json());
 
 // DATABASE CONFIG
 const db = require("./config/keys").mongoURI;
+
+if (process.env.SEED) {
+	app.use("/seeds/blog");
+	app.use("/seeds/materials");
+}
+
 mongoose
 	.connect(db)
 	.then(() => console.log("[MONGODB CONNECTED]"))
