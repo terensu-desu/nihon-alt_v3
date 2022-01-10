@@ -8,8 +8,8 @@ const materials = require("./routes/api/materials");
 const posts = require("./routes/api/posts");
 const users = require("./routes/api/users");
 const admin = require("./routes/api/admin");
-const seedPosts = require("./routes/api/blog");
-const seedMaterials = require("./routes/api/materials");
+const seedPosts = require("./seeds/blog");
+const seedMaterials = require("./seeds/materials");
 
 const app = express();
 
